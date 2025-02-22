@@ -4,6 +4,7 @@ import { UploadPrompt } from "./UploadPrompt";
 import { Loader } from "./Loader";
 import { Settings } from "./Settings";
 import { ShareButton } from "./ShareButton";
+import { YearSelector } from "./YearSelector";
 import { MessagesChart } from "./MessagesChart";
 import { TimeOfDayChart } from "./TimeOfDayChart";
 import { FirstMessages } from "./FirstMessages/FirstMessages";
@@ -61,13 +62,22 @@ export function Report({
 
       {!isLoading && processedDataByYear && (
         <>
-          <div className="mb-8 flex justify-end gap-2">
-            <Settings
-              {...processedData.settings}
-              selectedYear={selectedYear}
-              onYearChange={onYearChange}
-            />
-            <ShareButton data={processedDataByYear} />
+          <div className="mb-8 flex sm:justify-between justify-end items-center gap-2 flex-wrap sm:flex-nowrap">
+            <div className="w-full sm:w-48">
+              <YearSelector
+                years={processedData.settings.years}
+                selectedYear={selectedYear}
+                onYearChange={onYearChange}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Settings
+                {...processedData.settings}
+                selectedYear={selectedYear}
+                onYearChange={onYearChange}
+              />
+              <ShareButton data={processedDataByYear} />
+            </div>
           </div>
 
           <Masonry

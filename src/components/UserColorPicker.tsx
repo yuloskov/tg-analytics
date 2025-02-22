@@ -22,7 +22,7 @@ export function UserColorPicker({ userId, userName }: UserColorPickerProps) {
   return (
     <Card className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
       <CardHeader className="p-3">
-        <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-300">
+        <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-300 truncate">
           {userName}
         </CardTitle>
       </CardHeader>

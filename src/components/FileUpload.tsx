@@ -42,6 +42,7 @@ export function FileUpload({ onChatDataLoad, onHowToClick }: FileUploadProps) {
   })
 
   return (
+    
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <CardHeader>
         <CardTitle className="bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-2xl text-transparent">
@@ -55,7 +56,6 @@ export function FileUpload({ onChatDataLoad, onHowToClick }: FileUploadProps) {
           animate={{ opacity: 1, y: 0 }}
           className="rounded-lg bg-white shadow-sm transition-shadow hover:shadow-md dark:bg-slate-800"
         >
-
           <div
             {...getRootProps()}
             className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-8 transition-all duration-200 ${

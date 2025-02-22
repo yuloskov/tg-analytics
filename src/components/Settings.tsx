@@ -1,4 +1,3 @@
-import { YearSelector } from './YearSelector'
 import { UserColors } from './UserColors'
 import { type SettingsData } from '~/utils/dataProcessing'
 import { Settings as SettingsIcon } from 'lucide-react'
@@ -17,17 +16,9 @@ interface SettingsProps extends SettingsData {
   onYearChange: (year: string) => void;
 }
 
-function SettingsContent({ users, userIdMap, years, selectedYear, onYearChange }: SettingsProps) {
+function SettingsContent({ users, userIdMap }: SettingsProps) {
   return (
     <div className="space-y-6">
-      <div className="rounded-lg bg-white/50 dark:bg-slate-800/50 p-4 shadow-sm">
-        <h3 className="text-base font-semibold mb-4 text-slate-600 dark:text-slate-300">Фильтр по году</h3>
-        <YearSelector
-          years={years}
-          selectedYear={selectedYear}
-          onYearChange={onYearChange}
-        />
-      </div>
       <div className="rounded-lg bg-white/50 dark:bg-slate-800/50 p-4 shadow-sm">
         <h3 className="text-base font-semibold mb-4 text-slate-600 dark:text-slate-300">Цвета пользователей</h3>
         <UserColors users={users} userIdMap={userIdMap} />
@@ -38,11 +29,6 @@ function SettingsContent({ users, userIdMap, years, selectedYear, onYearChange }
 
 export function Settings(props: SettingsProps) {
   const [open, setOpen] = useState(false)
-
-  const handleYearChange = (year: string) => {
-    props.onYearChange(year)
-    setOpen(false)
-  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -57,7 +43,7 @@ export function Settings(props: SettingsProps) {
             Настройки
           </DialogTitle>
         </DialogHeader>
-        <SettingsContent {...props} onYearChange={handleYearChange} />
+        <SettingsContent {...props} />
       </DialogContent>
     </Dialog>
   )

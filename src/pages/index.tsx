@@ -17,7 +17,7 @@ import {
 } from "~/utils/dataProcessing";
 import { useUserColors } from "~/store/userColors";
 import { exampleData } from "~/utils/exampleData";
-
+import { PrivacyNotice } from "~/components/PrivacyNotice";
 export default function Home() {
   const [chatData, setChatData] = useState<ChatData | null>(null);
   const [selectedYear, setSelectedYear] = useState<string>("all");
@@ -95,6 +95,8 @@ export default function Home() {
 
       {activeTab === "upload" && (
         <div className="mb-8">
+          <PrivacyNotice />
+
           <FileUpload
             onChatDataLoad={(data) => {
               clearSharedDataFromUrl();

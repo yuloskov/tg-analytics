@@ -7,6 +7,7 @@ import {
 } from "~/components/ui/select"
 import { motion } from 'framer-motion'
 import { GeistSans } from 'geist/font/sans'
+import { Calendar } from 'lucide-react'
 
 interface YearSelectorProps {
   years: number[]
@@ -22,7 +23,8 @@ export function YearSelector({ years, selectedYear, onYearChange }: YearSelector
       transition={{ duration: 0.2 }}
     >
       <Select value={selectedYear} onValueChange={onYearChange}>
-        <SelectTrigger className="w-full bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-purple-500 dark:hover:border-purple-400 transition-colors">
+        <SelectTrigger className="h-12 inline-flex items-center gap-2 px-6 rounded-lg font-semibold text-white transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600">
+          <Calendar className="w-5 h-5" />
           <SelectValue placeholder="Выберите год" />
         </SelectTrigger>
         <SelectContent className={`${GeistSans.className} bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700`}>

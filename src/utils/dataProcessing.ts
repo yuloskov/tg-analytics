@@ -254,6 +254,9 @@ function processReactions(msg: Message, reactionStats: Record<string, ReactionSt
   
   msg.reactions.forEach(reaction => {
     const emoji = reaction.emoji;
+    // Skip if emoji is undefined or empty
+    if (!emoji) return;
+    
     if (!reactionStats[emoji]) {
       reactionStats[emoji] = {
         totalCount: 0,
