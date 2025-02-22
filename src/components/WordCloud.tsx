@@ -20,6 +20,7 @@ const ReactWordCloud = dynamic(() => import('react-d3-cloud'), {
 })
 
 export function WordCloudChart({ wordData }: WordCloudData) {
+  const processedWordData = wordData.map(item => ({ ...item }));
   return (
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <CardHeader>
@@ -33,9 +34,9 @@ export function WordCloudChart({ wordData }: WordCloudData) {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow h-[400px]"
         >
-          {wordData.length > 0 && (
+          {processedWordData.length > 0 && (
             <ReactWordCloud
-              data={wordData}
+              data={processedWordData}
               width={500}
               height={310}
               font="Impact"

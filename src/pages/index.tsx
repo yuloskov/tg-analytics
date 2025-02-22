@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { type ChatData } from "~/types/chat";
 import { FileUpload } from "~/components/FileUpload";
 import { MessagesChart } from "~/components/MessagesChart";
