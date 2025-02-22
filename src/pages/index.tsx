@@ -13,7 +13,7 @@ import {
   processDataByYear,
   defaultData,
   type ProcessedDataByYear,
-  ProcessedChatData,
+  type ProcessedChatData,
 } from "~/utils/dataProcessing";
 import { useUserColors } from "~/store/userColors";
 import { exampleData } from "~/utils/exampleData";
