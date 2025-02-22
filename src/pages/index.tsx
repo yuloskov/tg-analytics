@@ -5,8 +5,8 @@ import { ChatOverview } from '~/components/ChatOverview'
 import { MessagesChart } from '~/components/MessagesChart'
 import { PrivacyNotice } from '~/components/PrivacyNotice'
 import { FirstMessages } from '~/components/FirstMessages/FirstMessages'
-import { YearSelector } from '~/components/YearSelector'
 import { VoiceMessages } from '~/components/VoiceMessages'
+import { Settings } from '~/components/Settings'
 
 export default function Home() {
   const [chatData, setChatData] = useState<ChatData | null>(null)
@@ -39,7 +39,8 @@ export default function Home() {
       {chatData && (
         <>
           <div className="mb-8">
-            <YearSelector
+            <Settings
+              messages={filteredMessages}
               years={years}
               selectedYear={selectedYear}
               onYearChange={setSelectedYear}
@@ -47,7 +48,6 @@ export default function Home() {
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
-            <ChatOverview chatData={{...chatData, messages: filteredMessages}} />
             <MessagesChart messages={filteredMessages} />
             <FirstMessages messages={filteredMessages} />
             <VoiceMessages messages={filteredMessages} />

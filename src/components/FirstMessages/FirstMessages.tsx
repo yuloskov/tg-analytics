@@ -11,16 +11,12 @@ import {
   Legend,
 } from 'recharts'
 import { analyzeChat } from './chatAnalysis'
+import { useUserColors } from '~/store/userColors'
+import { MONTHS } from '~/constants'
 
 interface FirstMessagesProps {
   messages: Message[]
 }
-
-const MONTHS = [
-  'Январь', 'Февраль', 'Март', 'Апрель',
-  'Май', 'Июнь', 'Июль', 'Август',
-  'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-]
 
 interface MonthlyData {
   month: string;
@@ -28,8 +24,22 @@ interface MonthlyData {
 }
 
 export function FirstMessages({ messages }: FirstMessagesProps) {
+  const { getUserColor } = useUserColors()
   const analysis = analyzeChat(messages)
-  const users = Array.from(new Set(messages.map(msg => msg.from)))
+  const users = Array.from(
+    new Set(
+      messages
+        .map((msg) => msg.from)
+        .filter((from): from is string => typeof from === 'string')
+    )
+  );
+  const userIdMap: Record<string, string> = Object.fromEntries(
+    messages
+      .filter((msg): msg is Message & { from: string; from_id: string } => 
+        typeof msg.from === 'string' && typeof msg.from_id === 'string'
+      )
+      .map((msg) => [msg.from, msg.from_id])
+  );
   
   // Initialize monthly data structure
   const monthlyInitiations: MonthlyData[] = MONTHS.map(month => ({
@@ -68,14 +78,16 @@ export function FirstMessages({ messages }: FirstMessagesProps) {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                {users.map((user, index) => (
-                  <Bar
-                    key={user}
-                    dataKey={user}
-                    stackId="a"
-                    fill={index === 0 ? '#1e88e5' : '#e91e63'}
-                  />
-                ))}
+                {users
+                  .filter((user): user is string => typeof user === 'string' && user in userIdMap)
+                  .map(user => (
+                    <Bar
+                      key={user}
+                      dataKey={user}
+                      stackId="a"
+                      fill={getUserColor(userIdMap[user] ?? '')}
+                    />
+                  ))}
               </BarChart>
             </ResponsiveContainer>
           </div>

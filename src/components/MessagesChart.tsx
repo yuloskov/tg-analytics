@@ -10,29 +10,31 @@ import {
   Legend,
 } from "recharts";
 import { type Message } from "~/types/chat";
+import { useUserColors } from "~/store/userColors";
+import { MONTHS } from "~/constants";
 
 interface MessagesChartProps {
   messages: Message[];
 }
 
-const MONTHS = [
-  "Январь",
-  "Февраль",
-  "Март",
-  "Апрель",
-  "Май",
-  "Июнь",
-  "Июль",
-  "Август",
-  "Сентябрь",
-  "Октябрь",
-  "Ноябрь",
-  "Декабрь",
-];
-
 export function MessagesChart({ messages }: MessagesChartProps) {
-  // Get unique users
-  const users = Array.from(new Set(messages.map((msg) => msg.from)));
+  const { getUserColor } = useUserColors();
+  
+  // Get unique users and their IDs
+  const users = Array.from(
+    new Set(
+      messages
+        .map((msg) => msg.from)
+        .filter((from): from is string => typeof from === 'string')
+    )
+  );
+  const userIdMap: Record<string, string> = Object.fromEntries(
+    messages
+      .filter((msg): msg is Message & { from: string; from_id: string } => 
+        typeof msg.from === 'string' && typeof msg.from_id === 'string'
+      )
+      .map((msg) => [msg.from, msg.from_id])
+  );
 
   // Initialize data structure for each month
   const monthlyData = MONTHS.map((month) => ({
@@ -67,14 +69,16 @@ export function MessagesChart({ messages }: MessagesChartProps) {
             <YAxis />
             <Tooltip />
             <Legend />
-            {users.map((user, index) => (
-              <Bar
-                key={user}
-                dataKey={user}
-                stackId="a"
-                fill={index === 0 ? "#1e88e5" : "#e91e63"}
-              />
-            ))}
+            {users
+              .filter((user): user is string => typeof user === 'string' && user in userIdMap)
+              .map((user) => (
+                <Bar
+                  key={user}
+                  dataKey={user}
+                  stackId="a"
+                  fill={getUserColor(userIdMap[user] ?? '')}
+                />
+              ))}
           </BarChart>
         </ResponsiveContainer>
       </CardContent>

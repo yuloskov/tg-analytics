@@ -8,13 +8,17 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Cell,
 } from 'recharts'
+import { useUserColors } from '~/store/userColors'
 
 interface VoiceMessagesProps {
   messages: Message[]
 }
 
 export function VoiceMessages({ messages }: VoiceMessagesProps) {
+  const { getUserColor } = useUserColors()
+
   // Get only voice messages
   const voiceMessages = messages.filter(msg => msg.media_type === 'voice_message')
   
@@ -22,17 +26,25 @@ export function VoiceMessages({ messages }: VoiceMessagesProps) {
   const users = Array.from(new Set(voiceMessages.map(msg => msg.from)))
   
   // Calculate statistics for each user
+  interface UserStat {
+    user: string
+    count: number
+    longestMessage: number
+    userId: string
+  }
+
   const userStats = users.map(user => {
     const userVoiceMessages = voiceMessages.filter(msg => msg.from === user)
     const count = userVoiceMessages.length
     const longestMessage = userVoiceMessages.reduce((max, msg) => 
-      Math.max(max, msg.duration_seconds || 0), 0
+      Math.max(max, msg.duration_seconds ?? 0), 0
     )
     
     return {
       user,
       count,
       longestMessage,
+      userId: userVoiceMessages[0]?.from_id ?? '', // Store user ID for color
     }
   })
 
@@ -84,8 +96,12 @@ export function VoiceMessages({ messages }: VoiceMessagesProps) {
                 />
                 <Bar
                   dataKey="count"
-                  fill="#e91e63"
-                />
+                  name="Количество сообщений"
+                >
+                  {userStats.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={getUserColor(entry.userId)} />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
