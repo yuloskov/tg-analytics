@@ -10,7 +10,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog'
-import { Button } from '~/components/ui/button'
 import { useState } from 'react'
 
 interface SettingsProps extends SettingsData {
@@ -48,9 +47,9 @@ export function Settings(props: SettingsProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="icon" className="bg-white/50 dark:bg-slate-800/50">
-          <SettingsIcon className="h-4 w-4" />
-        </Button>
+        <button className="inline-flex items-center gap-2 p-3 rounded-lg font-semibold text-slate-600 dark:text-slate-300 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 bg-white/50 dark:bg-slate-800/50">
+          <SettingsIcon className="w-5 h-5" />
+        </button>
       </DialogTrigger>
       <DialogContent className={`${GeistSans.className} bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 border-slate-200 dark:border-slate-700`}>
         <DialogHeader>
