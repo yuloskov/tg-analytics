@@ -7,6 +7,7 @@ import { FirstMessages } from '~/components/FirstMessages/FirstMessages'
 import { VoiceMessages } from '~/components/VoiceMessages'
 import { VideoMessages } from '~/components/VideoMessages'
 import { Settings } from '~/components/Settings'
+import { TimeOfDayChart } from '~/components/TimeOfDayChart'
 
 export default function Home() {
   const [chatData, setChatData] = useState<ChatData | null>(null)
@@ -49,6 +50,7 @@ export default function Home() {
 
           <div className="grid gap-4 md:grid-cols-2">
             <MessagesChart messages={filteredMessages} />
+            <TimeOfDayChart messages={filteredMessages} />
             <FirstMessages messages={filteredMessages} />
             <VoiceMessages messages={filteredMessages} />
             <VideoMessages messages={filteredMessages} />
