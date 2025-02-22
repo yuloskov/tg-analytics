@@ -103,14 +103,14 @@ export function ForwardedMessages({ messages }: ForwardedMessagesProps) {
                   <BarChart
                     data={stat.sources}
                     layout="vertical"
-                    margin={{ top: 5, right: 30, left: 120, bottom: 5 }}
+                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                     <XAxis type="number" stroke="#64748b" />
                     <YAxis 
                       type="category" 
                       dataKey="source"
-                      width={200}
+                      width={120}
                       tick={{ fontSize: 12 }}
                       stroke="#64748b"
                     />
