@@ -9,6 +9,8 @@ import { VideoMessages } from '~/components/VideoMessages'
 import { Settings } from '~/components/Settings'
 import { TimeOfDayChart } from '~/components/TimeOfDayChart'
 import { WordCloudChart } from '~/components/WordCloud'
+import { ForwardedMessages } from '~/components/ForwardedMessages'
+import { PopularReactions } from '~/components/PopularReactions'
 
 export default function Home() {
   const [chatData, setChatData] = useState<ChatData | null>(null)
@@ -53,9 +55,11 @@ export default function Home() {
             <MessagesChart messages={filteredMessages} />
             <TimeOfDayChart messages={filteredMessages} />
             <FirstMessages messages={filteredMessages} />
+            <PopularReactions messages={filteredMessages} />
             <VoiceMessages messages={filteredMessages} />
             <VideoMessages messages={filteredMessages} />
             <WordCloudChart messages={filteredMessages} />
+            <ForwardedMessages messages={filteredMessages} />
           </div>
         </>
       )}

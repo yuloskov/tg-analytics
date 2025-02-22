@@ -7,6 +7,7 @@ export interface Message {
   text: string
   media_type?: string
   duration_seconds?: number
+  forwarded_from?: string
 }
 
 export interface ChatData {
