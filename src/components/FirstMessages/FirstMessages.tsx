@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Legend,
 } from 'recharts'
 import { analyzeChat } from './chatAnalysis'
 
@@ -15,22 +16,36 @@ interface FirstMessagesProps {
   messages: Message[]
 }
 
+const MONTHS = [
+  'Январь', 'Февраль', 'Март', 'Апрель',
+  'Май', 'Июнь', 'Июль', 'Август',
+  'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+]
+
+interface MonthlyData {
+  month: string;
+  [key: string]: number | string;
+}
+
 export function FirstMessages({ messages }: FirstMessagesProps) {
   const analysis = analyzeChat(messages)
+  const users = Array.from(new Set(messages.map(msg => msg.from)))
   
-  // Prepare data for the chart
-  const initiationsCountByUser = analysis.conversationInitiators.reduce<Record<string, number>>(
-    (acc, initiation) => {
-      acc[initiation.user] = (acc[initiation.user] ?? 0) + 1
-      return acc
-    },
-    {}
-  )
-  
-  const chartData = Object.entries(initiationsCountByUser).map(([name, count]) => ({
-    name,
-    initiations: count,
+  // Initialize monthly data structure
+  const monthlyInitiations: MonthlyData[] = MONTHS.map(month => ({
+    month,
+    ...Object.fromEntries(users.map(user => [user, 0]))
   }))
+
+  // Count initiations by month and user
+  analysis.conversationInitiators.forEach(initiation => {
+    const date = new Date(initiation.time)
+    const monthIndex = date.getMonth()
+    const monthData = monthlyInitiations[monthIndex]
+    if (initiation.user && monthData) {
+      monthData[initiation.user] = (monthData[initiation.user] as number) + 1
+    }
+  })
   
   return (
     <div className="space-y-4">
@@ -51,22 +66,30 @@ export function FirstMessages({ messages }: FirstMessagesProps) {
 
       <Card>
         <CardHeader>
-          <CardTitle>Conversation Initiations Chart</CardTitle>
+          <CardTitle>Кто чаще начинал диалог?</CardTitle>
         </CardHeader>
-        <CardContent className="h-[300px]">
+        <CardContent>
           <p className="text-sm text-muted-foreground mb-4">
-            Number of times each user started conversations after 12+ hours of inactivity
+            Количество раз, когда пользователь начинал диалог после 12+ часов тишины
           </p>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
-              data={chartData}
+              data={monthlyInitiations}
               margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis allowDecimals={false} />
+              <XAxis dataKey="month" />
+              <YAxis />
               <Tooltip />
-              <Bar dataKey="initiations" fill="#8884d8" />
+              <Legend />
+              {users.map((user, index) => (
+                <Bar
+                  key={user}
+                  dataKey={user}
+                  stackId="a"
+                  fill={index === 0 ? '#1e88e5' : '#e91e63'}
+                />
+              ))}
             </BarChart>
           </ResponsiveContainer>
         </CardContent>

@@ -7,38 +7,61 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Legend,
 } from 'recharts'
 import { Message } from '~/types/chat'
-import { analyzeChat } from '~/components/FirstMessages/chatAnalysis'
 
 interface MessagesChartProps {
   messages: Message[]
 }
 
+const MONTHS = [
+  'Январь', 'Февраль', 'Март', 'Апрель',
+  'Май', 'Июнь', 'Июль', 'Август',
+  'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+]
+
 export function MessagesChart({ messages }: MessagesChartProps) {
-  const getMessageCountChartData = (messagesByUser: Record<string, number>) => {
-    return Object.entries(messagesByUser).map(([name, count]) => ({
-      name,
-      messages: count,
-    }))
-  }
+  // Get unique users
+  const users = Array.from(new Set(messages.map(msg => msg.from)))
+
+  // Initialize data structure for each month
+  const monthlyData = MONTHS.map(month => ({
+    month,
+    ...Object.fromEntries(users.map(user => [user, 0]))
+  }))
+
+  // Count messages by month and user
+  messages.forEach(msg => {
+    const date = new Date(msg.date)
+    const monthIndex = date.getMonth()
+    monthlyData[monthIndex][msg.from]++
+  })
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Messages by User</CardTitle>
+        <CardTitle>Кто больше писал?</CardTitle>
       </CardHeader>
-      <CardContent className="h-[300px]">
+      <CardContent className="h-[400px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
-            data={getMessageCountChartData(analyzeChat(messages).messagesByUser)}
+            data={monthlyData}
             margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="month" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="messages" fill="#8884d8" />
+            <Legend />
+            {users.map((user, index) => (
+              <Bar
+                key={user}
+                dataKey={user}
+                stackId="a"
+                fill={index === 0 ? '#1e88e5' : '#e91e63'}
+              />
+            ))}
           </BarChart>
         </ResponsiveContainer>
       </CardContent>

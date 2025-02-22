@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import { ChatData } from '~/types/chat'
+import { type ChatData } from '~/types/chat'
 
 interface ChatOverviewProps {
   chatData: ChatData
