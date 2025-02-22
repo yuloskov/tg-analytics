@@ -66,3 +66,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Masonry grid styles */
+.masonry-grid-item {
+  margin-bottom: 1rem;
+  break-inside: avoid;
+}

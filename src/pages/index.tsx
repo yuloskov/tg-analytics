@@ -11,6 +11,7 @@ import { TimeOfDayChart } from '~/components/TimeOfDayChart'
 import { WordCloudChart } from '~/components/WordCloud'
 import { ForwardedMessages } from '~/components/ForwardedMessages'
 import { PopularReactions } from '~/components/PopularReactions'
+import Masonry from 'react-masonry-css'
 
 export default function Home() {
   const [chatData, setChatData] = useState<ChatData | null>(null)
@@ -29,6 +30,12 @@ export default function Home() {
   const filteredMessages = selectedYear === 'all'
     ? validMessages
     : validMessages.filter(msg => new Date(msg.date).getFullYear() === parseInt(selectedYear))
+
+  const breakpointColumns = {
+    default: 2,
+    1024: 2,
+    768: 1
+  }
 
   return (
     <div className="container mx-auto p-4">
@@ -51,16 +58,36 @@ export default function Home() {
             />
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
-            <MessagesChart messages={filteredMessages} />
-            <TimeOfDayChart messages={filteredMessages} />
-            <FirstMessages messages={filteredMessages} />
-            <PopularReactions messages={filteredMessages} />
-            <VoiceMessages messages={filteredMessages} />
-            <VideoMessages messages={filteredMessages} />
-            <WordCloudChart messages={filteredMessages} />
-            <ForwardedMessages messages={filteredMessages} />
-          </div>
+          <Masonry
+            breakpointCols={breakpointColumns}
+            className="flex -ml-4 w-auto"
+            columnClassName="pl-4 bg-clip-padding"
+          >
+            <div className="masonry-grid-item">
+              <MessagesChart messages={filteredMessages} />
+            </div>
+            <div className="masonry-grid-item">
+              <TimeOfDayChart messages={filteredMessages} />
+            </div>
+            <div className="masonry-grid-item">
+              <FirstMessages messages={filteredMessages} />
+            </div>
+            <div className="masonry-grid-item">
+              <PopularReactions messages={filteredMessages} />
+            </div>
+            <div className="masonry-grid-item">
+              <VoiceMessages messages={filteredMessages} />
+            </div>
+            <div className="masonry-grid-item">
+              <VideoMessages messages={filteredMessages} />
+            </div>
+            <div className="masonry-grid-item">
+              <WordCloudChart messages={filteredMessages} />
+            </div>
+            <div className="masonry-grid-item">
+              <ForwardedMessages messages={filteredMessages} />
+            </div>
+          </Masonry>
         </>
       )}
     </div>
