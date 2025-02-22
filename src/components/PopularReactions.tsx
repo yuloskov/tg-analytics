@@ -28,7 +28,7 @@ export function PopularReactions({ messages }: PopularReactionsProps) {
       if (reaction.recent) {
         reaction.recent.forEach(user => {
           if (!user.from) return
-          acc[emoji].userCounts[user.from] = (acc[emoji].userCounts[user.from] || 0) + 1
+          acc[emoji]!.userCounts[user.from] = (acc[emoji]!.userCounts[user.from] ?? 0) + 1
         })
       }
     })
