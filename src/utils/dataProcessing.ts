@@ -511,3 +511,67 @@ export function processForwardedMessagesData(messages: Message[]): ForwardedMess
     totalCount: forwardedMessages.length,
   };
 }
+
+export interface SettingsData {
+  users: string[];
+  userIdMap: Record<string, string>;
+  years: number[];
+}
+
+export function processSettingsData(messages: Message[]): SettingsData {
+  // Get unique users
+  const users = Array.from(
+    new Set(
+      messages
+        .map((msg) => msg.from)
+        .filter((from): from is string => typeof from === 'string')
+    )
+  );
+
+  // Create user ID map for colors
+  const userIdMap: Record<string, string> = Object.fromEntries(
+    messages
+      .filter((msg): msg is Message & { from: string; from_id: string } => 
+        typeof msg.from === 'string' && typeof msg.from_id === 'string'
+      )
+      .map((msg) => [msg.from, msg.from_id])
+  );
+
+  // Get available years
+  const years = messages.length > 0
+    ? Array.from(new Set(messages.map(msg => new Date(msg.date).getFullYear())))
+        .sort((a, b) => b - a) // Sort years in descending order
+    : [];
+
+  return {
+    users,
+    userIdMap,
+    years,
+  };
+}
+
+export interface ProcessedChatData {
+  messages: ProcessedMessagesData;
+  timeOfDay: TimeOfDayData;
+  firstMessages: FirstMessagesData;
+  reactions: ReactionsData;
+  voiceMessages: VoiceMessagesData;
+  videoMessages: VideoMessagesData;
+  wordCloud: WordCloudData;
+  forwardedMessages: ForwardedMessagesData;
+  settings: SettingsData;
+}
+
+export function processChatData(messages: Message[], allMessages: Message[]): ProcessedChatData {
+  return {
+    messages: processMessagesData(messages),
+    timeOfDay: processTimeOfDayData(messages),
+    firstMessages: processFirstMessagesData(messages),
+    reactions: processReactionsData(messages),
+    voiceMessages: processVoiceMessagesData(messages),
+    videoMessages: processVideoMessagesData(messages),
+    wordCloud: processWordCloudData(messages),
+    forwardedMessages: processForwardedMessagesData(messages),
+    settings: processSettingsData(allMessages),
+  };
+}

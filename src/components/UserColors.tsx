@@ -1,30 +1,22 @@
-import { type Message } from '~/types/chat'
 import { UserColorPicker } from './UserColorPicker'
 
 interface UserColorsProps {
-  messages: Message[]
+  users: string[];
+  userIdMap: Record<string, string>;
 }
 
-export function UserColors({ messages }: UserColorsProps) {
-  // Get unique users with their IDs
-  const uniqueUserIds = Array.from(new Set(messages.map(msg => msg.from_id)))
-  const users = uniqueUserIds.map(id => {
-    const message = messages.find(msg => msg.from_id === id)!
-    return {
-      id,
-      name: message.from
-    }
-  })
-
+export function UserColors({ users, userIdMap }: UserColorsProps) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {users.map(user => (
-        <UserColorPicker
-          key={user.id}
-          userId={user.id}
-          userName={user.name}
-        />
-      ))}
+      {Object.entries(userIdMap)
+        .filter(([user]) => users.includes(user))
+        .map(([user, userId]) => (
+          <UserColorPicker
+            key={userId}
+            userId={userId}
+            userName={user}
+          />
+        ))}
     </div>
   )
 } 

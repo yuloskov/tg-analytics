@@ -15,16 +15,52 @@ import { Header } from '~/components/Header'
 import { ExampleTab } from '~/components/ExampleTab'
 import { HowToTab } from '~/components/HowToTab'
 import Masonry from 'react-masonry-css'
-import { 
-  processMessagesData, 
-  processTimeOfDayData, 
-  processFirstMessagesData,
-  processReactionsData,
-  processVoiceMessagesData,
-  processVideoMessagesData,
-  processWordCloudData, 
-  processForwardedMessagesData
-} from '~/utils/dataProcessing'
+import { processChatData } from '~/utils/dataProcessing'
+
+// Default empty data structures
+const defaultData = {
+  messages: {
+    monthlyData: [],
+    users: [],
+    userIdMap: {},
+  },
+  timeOfDay: {
+    hourCounts: [],
+    users: [],
+    userIdMap: {},
+  },
+  firstMessages: {
+    monthlyInitiations: [],
+    users: [],
+    userIdMap: {},
+  },
+  reactions: {
+    topReactions: [],
+    userFavorites: [],
+  },
+  voiceMessages: {
+    userStats: [],
+    longestMessageStats: { user: '', longestMessage: 0 },
+    totalCount: 0,
+  },
+  videoMessages: {
+    userStats: [],
+    longestMessageStats: { user: '', longestMessage: 0 },
+    totalCount: 0,
+  },
+  wordCloud: {
+    wordData: [],
+  },
+  forwardedMessages: {
+    userStats: [],
+    totalCount: 0,
+  },
+  settings: {
+    users: [],
+    userIdMap: {},
+    years: [],
+  },
+}
 
 export default function Home() {
   const [chatData, setChatData] = useState<ChatData | null>(null)
@@ -34,16 +70,15 @@ export default function Home() {
   // Filter out messages with undefined users before passing to components
   const validMessages = chatData?.messages.filter(msg => msg.from !== undefined) ?? []
 
-  // Get available years from messages
-  const years = validMessages.length > 0
-    ? Array.from(new Set(validMessages.map(msg => new Date(msg.date).getFullYear())))
-        .sort((a, b) => b - a) // Sort years in descending order
-    : []
-
   // Filter messages by selected year
   const filteredMessages = selectedYear === 'all'
     ? validMessages
     : validMessages.filter(msg => new Date(msg.date).getFullYear() === parseInt(selectedYear))
+
+  // Process all data at once, using validMessages for settings and filteredMessages for charts
+  const processedData = validMessages.length > 0 
+    ? processChatData(filteredMessages, validMessages) 
+    : defaultData
 
   const breakpointColumns = {
     default: 2,
@@ -71,8 +106,7 @@ export default function Home() {
             <>
               <div className="mb-8">
                 <Settings
-                  messages={filteredMessages}
-                  years={years}
+                  {...processedData.settings}
                   selectedYear={selectedYear}
                   onYearChange={setSelectedYear}
                 />
@@ -84,28 +118,28 @@ export default function Home() {
                 columnClassName="pl-4 bg-clip-padding"
               >
                 <div className="masonry-grid-item">
-                  <MessagesChart {...processMessagesData(filteredMessages)} />
+                  <MessagesChart {...processedData.messages} />
                 </div>
                 <div className="masonry-grid-item">
-                  <TimeOfDayChart {...processTimeOfDayData(filteredMessages)} />
+                  <TimeOfDayChart {...processedData.timeOfDay} />
                 </div>
                 <div className="masonry-grid-item">
-                  <FirstMessages {...processFirstMessagesData(filteredMessages)} />
+                  <FirstMessages {...processedData.firstMessages} />
                 </div>
                 <div className="masonry-grid-item">
-                  <PopularReactions {...processReactionsData(filteredMessages)} />
+                  <PopularReactions {...processedData.reactions} />
                 </div>
                 <div className="masonry-grid-item">
-                  <VoiceMessages {...processVoiceMessagesData(filteredMessages)} />
+                  <VoiceMessages {...processedData.voiceMessages} />
                 </div>
                 <div className="masonry-grid-item">
-                  <VideoMessages {...processVideoMessagesData(filteredMessages)} />
+                  <VideoMessages {...processedData.videoMessages} />
                 </div>
                 <div className="masonry-grid-item">
-                  <WordCloudChart {...processWordCloudData(filteredMessages)} />
+                  <WordCloudChart {...processedData.wordCloud} />
                 </div>
                 <div className="masonry-grid-item">
-                  <ForwardedMessages {...processForwardedMessagesData(filteredMessages)} />
+                  <ForwardedMessages {...processedData.forwardedMessages} />
                 </div>
               </Masonry>
             </>
