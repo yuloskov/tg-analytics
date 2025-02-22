@@ -8,7 +8,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Cell,
 } from 'recharts'
 import { useUserColors } from '~/store/userColors'
 
@@ -52,7 +51,7 @@ export function ForwardedMessages({ messages }: ForwardedMessagesProps) {
     const sourceCount: Record<string, number> = {}
     userForwardedMessages.forEach(msg => {
       if (msg.forwarded_from) {
-        sourceCount[msg.forwarded_from as string] = (sourceCount[msg.forwarded_from as string] ?? 0) + 1
+        sourceCount[msg.forwarded_from] = (sourceCount[msg.forwarded_from] ?? 0) + 1
       }
     })
     
