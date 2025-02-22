@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { type ChatData } from '~/types/chat'
-import { Card, CardContent } from '~/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import { motion } from 'framer-motion'
 
 interface FileUploadProps {
   onChatDataLoad: (data: ChatData) => void
@@ -39,49 +40,80 @@ export function FileUpload({ onChatDataLoad }: FileUploadProps) {
   })
 
   return (
-    <Card>
-      <CardContent className="p-0">
-        <div
-          {...getRootProps()}
-          className={`
-            flex flex-col items-center justify-center p-8 
-            border-2 border-dashed rounded-lg cursor-pointer
-            transition-colors duration-200
-            ${isDragging 
-              ? 'border-blue-500 bg-blue-50' 
-              : 'border-gray-300 hover:border-gray-400'
-            }
-          `}
+    <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+      <CardHeader>
+        <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
+          Загрузка чата
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow"
         >
-          <input {...getInputProps()} />
-          
-          <svg 
-            className={`w-12 h-12 mb-4 ${isDragging ? 'text-blue-500' : 'text-gray-400'}`} 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
+          <div
+            {...getRootProps()}
+            className={`
+              flex flex-col items-center justify-center p-8 
+              border-2 border-dashed rounded-lg cursor-pointer
+              transition-all duration-200
+              ${isDragging 
+                ? 'border-purple-500 bg-purple-50 dark:border-purple-400 dark:bg-purple-900/20' 
+                : 'border-slate-300 hover:border-slate-400 dark:border-slate-600 dark:hover:border-slate-500'
+              }
+            `}
           >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-            />
-          </svg>
+            <input {...getInputProps()} />
+            
+            <motion.div
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.1 }}
+            >
+              <svg 
+                className={`w-16 h-16 mb-4 ${
+                  isDragging 
+                    ? 'text-purple-500 dark:text-purple-400' 
+                    : 'text-slate-400 dark:text-slate-500'
+                }`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                />
+              </svg>
+            </motion.div>
 
-          <p className="mb-2 text-lg font-semibold text-gray-700">
-            Перетащите экспорт чата Telegram сюда
-          </p>
-          <p className="text-sm text-gray-500">
-            или нажмите, чтобы выбрать JSON файл
-          </p>
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              <p className="mb-2 text-lg font-semibold text-slate-700 dark:text-slate-200">
+                Перетащите экспорт чата Telegram сюда
+              </p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                или нажмите, чтобы выбрать JSON файл
+              </p>
+            </motion.div>
 
-          {error && (
-            <p className="mt-4 text-sm text-red-500">
-              {error}
-            </p>
-          )}
-        </div>
+            {error && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="mt-4 text-sm text-red-500 dark:text-red-400"
+              >
+                {error}
+              </motion.p>
+            )}
+          </div>
+        </motion.div>
       </CardContent>
     </Card>
   )
