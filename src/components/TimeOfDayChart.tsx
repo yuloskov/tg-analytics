@@ -17,6 +17,12 @@ interface TimeOfDayChartProps {
   messages: Message[]
 }
 
+interface HourCount {
+  hour: number
+  label: string
+  [key: string]: number | string  // Allow string indexing for user names
+}
+
 export function TimeOfDayChart({ messages }: TimeOfDayChartProps) {
   const { getUserColor } = useUserColors()
 
@@ -39,7 +45,7 @@ export function TimeOfDayChart({ messages }: TimeOfDayChartProps) {
   )
 
   // Initialize array for 24 hours with counts for each user
-  const hourCounts = Array.from({ length: 24 }, (_, i) => ({
+  const hourCounts: HourCount[] = Array.from({ length: 24 }, (_, i) => ({
     hour: i,
     label: `${i.toString().padStart(2, '0')}:00`,
     ...Object.fromEntries(users.map(user => [user, 0]))
@@ -48,8 +54,9 @@ export function TimeOfDayChart({ messages }: TimeOfDayChartProps) {
   // Count messages for each hour and user
   messages.forEach((msg) => {
     const hour = new Date(msg.date).getHours()
-    if (msg.from && typeof msg.from === 'string') {
-      hourCounts[hour][msg.from] = (hourCounts[hour][msg.from] || 0) + 1
+    if (msg.from && typeof msg.from === 'string' && hourCounts[hour]) {
+      const currentCount = hourCounts[hour][msg.from] as number
+      hourCounts[hour][msg.from] = currentCount + 1
     }
   })
 
