@@ -23,7 +23,7 @@ A web application that provides insightful analytics and visualizations for your
 
 1. Clone the repository:
 ```bash
-git clone [your-repository-url]
+git clone git@github.com:yuloskov/tg-analytics.git
 cd tg-analytics
 ```
 
