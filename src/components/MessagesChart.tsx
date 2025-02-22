@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import {
   BarChart,
   Bar,
@@ -8,35 +8,48 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-} from 'recharts'
-import { Message } from '~/types/chat'
+} from "recharts";
+import { type Message } from "~/types/chat";
 
 interface MessagesChartProps {
-  messages: Message[]
+  messages: Message[];
 }
 
 const MONTHS = [
-  'Январь', 'Февраль', 'Март', 'Апрель',
-  'Май', 'Июнь', 'Июль', 'Август',
-  'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-]
+  "Январь",
+  "Февраль",
+  "Март",
+  "Апрель",
+  "Май",
+  "Июнь",
+  "Июль",
+  "Август",
+  "Сентябрь",
+  "Октябрь",
+  "Ноябрь",
+  "Декабрь",
+];
 
 export function MessagesChart({ messages }: MessagesChartProps) {
   // Get unique users
-  const users = Array.from(new Set(messages.map(msg => msg.from)))
+  const users = Array.from(new Set(messages.map((msg) => msg.from)));
 
   // Initialize data structure for each month
-  const monthlyData = MONTHS.map(month => ({
+  const monthlyData = MONTHS.map((month) => ({
     month,
-    ...Object.fromEntries(users.map(user => [user, 0]))
-  }))
+    ...Object.fromEntries(users.map((user) => [user, 0])),
+  }));
 
   // Count messages by month and user
-  messages.forEach(msg => {
-    const date = new Date(msg.date)
-    const monthIndex = date.getMonth()
-    monthlyData[monthIndex][msg.from]++
-  })
+  messages.forEach((msg) => {
+    const date = new Date(msg.date);
+    const monthIndex = date.getMonth();
+    const monthData = monthlyData[monthIndex];
+    if (monthData && msg.from) {
+      // @ts-expect-error - msg.from is a string
+      monthData[msg.from]++;
+    }
+  });
 
   return (
     <Card>
@@ -59,12 +72,12 @@ export function MessagesChart({ messages }: MessagesChartProps) {
                 key={user}
                 dataKey={user}
                 stackId="a"
-                fill={index === 0 ? '#1e88e5' : '#e91e63'}
+                fill={index === 0 ? "#1e88e5" : "#e91e63"}
               />
             ))}
           </BarChart>
         </ResponsiveContainer>
       </CardContent>
     </Card>
-  )
-} 
+  );
+}

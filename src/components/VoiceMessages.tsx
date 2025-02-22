@@ -1,0 +1,96 @@
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import { type Message } from '~/types/chat'
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts'
+
+interface VoiceMessagesProps {
+  messages: Message[]
+}
+
+export function VoiceMessages({ messages }: VoiceMessagesProps) {
+  // Get only voice messages
+  const voiceMessages = messages.filter(msg => msg.media_type === 'voice_message')
+  
+  // Get unique users
+  const users = Array.from(new Set(voiceMessages.map(msg => msg.from)))
+  
+  // Calculate statistics for each user
+  const userStats = users.map(user => {
+    const userVoiceMessages = voiceMessages.filter(msg => msg.from === user)
+    const count = userVoiceMessages.length
+    const longestMessage = userVoiceMessages.reduce((max, msg) => 
+      Math.max(max, msg.duration_seconds || 0), 0
+    )
+    
+    return {
+      user,
+      count,
+      longestMessage,
+    }
+  })
+
+  // Sort by count in descending order
+  userStats.sort((a, b) => b.count - a.count)
+
+  // Find the longest message overall
+  const longestMessageStats = userStats.reduce((max, curr) => 
+    curr.longestMessage > max.longestMessage ? curr : max
+  , userStats[0] ?? { user: '', longestMessage: 0 })
+
+  // Format duration as minutes and seconds
+  const formatDuration = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60)
+    const remainingSeconds = seconds % 60
+    return `${minutes} мин ${remainingSeconds} сек`
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Голосовые сообщения</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="rounded-lg bg-muted p-3">
+              <p className="text-sm font-medium mb-1">Всего голосовых</p>
+              <p className="text-2xl font-bold">{voiceMessages.length}</p>
+            </div>
+            <div className="rounded-lg bg-muted p-3">
+              <p className="text-sm font-medium mb-1">Самое длинное</p>
+              <p className="text-2xl font-bold">{formatDuration(longestMessageStats.longestMessage)}</p>
+              <p className="text-sm text-muted-foreground">от {longestMessageStats.user}</p>
+            </div>
+          </div>
+
+          <div className="h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={userStats}
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="user" />
+                <YAxis />
+                <Tooltip 
+                  formatter={(value: number, name: string) => [value, 'Количество сообщений']}
+                />
+                <Bar
+                  dataKey="count"
+                  fill="#e91e63"
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  )
+} 

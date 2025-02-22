@@ -46,24 +46,9 @@ export function FirstMessages({ messages }: FirstMessagesProps) {
       monthData[initiation.user] = (monthData[initiation.user] as number) + 1
     }
   })
-  
+
   return (
     <div className="space-y-4">
-      <Card>
-        <CardHeader>
-          <CardTitle>First Ever Messages</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {Object.entries(analysis.firstMessageTime).map(([user, time]) => (
-            <div key={user} className="mb-2">
-              <p>
-                <strong>{user}</strong>: {new Date(time).toLocaleString()}
-              </p>
-            </div>
-          ))}
-        </CardContent>
-      </Card>
-
       <Card>
         <CardHeader>
           <CardTitle>Кто чаще начинал диалог?</CardTitle>
@@ -72,26 +57,28 @@ export function FirstMessages({ messages }: FirstMessagesProps) {
           <p className="text-sm text-muted-foreground mb-4">
             Количество раз, когда пользователь начинал диалог после 12+ часов тишины
           </p>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={monthlyInitiations}
-              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              {users.map((user, index) => (
-                <Bar
-                  key={user}
-                  dataKey={user}
-                  stackId="a"
-                  fill={index === 0 ? '#1e88e5' : '#e91e63'}
-                />
-              ))}
-            </BarChart>
-          </ResponsiveContainer>
+          <div className="h-[400px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={monthlyInitiations}
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {users.map((user, index) => (
+                  <Bar
+                    key={user}
+                    dataKey={user}
+                    stackId="a"
+                    fill={index === 0 ? '#1e88e5' : '#e91e63'}
+                  />
+                ))}
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </CardContent>
       </Card>
     </div>

@@ -5,6 +5,8 @@ export interface Message {
   from: string
   from_id: string
   text: string
+  media_type?: string
+  duration_seconds?: number
 }
 
 export interface ChatData {

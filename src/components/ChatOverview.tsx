@@ -14,7 +14,6 @@ export function ChatOverview({ chatData }: ChatOverviewProps) {
       <CardContent>
         <p>Chat Name: {chatData.name}</p>
         <p>Total Messages: {chatData.messages.length}</p>
-        <p>Chat Type: {chatData.type}</p>
       </CardContent>
     </Card>
   )
