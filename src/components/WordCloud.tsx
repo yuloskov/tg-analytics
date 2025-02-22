@@ -1,7 +1,12 @@
 import { type Message } from '~/types/chat'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import WordCloud from 'react-d3-cloud'
+import dynamic from 'next/dynamic'
 import { useMemo } from 'react'
+
+const ReactWordCloud = dynamic(() => import('react-d3-cloud'), {
+  ssr: false,
+  loading: () => <div>Loading word cloud...</div>
+})
 
 // Technical words to filter out
 const EXCLUDED_WORDS = new Set([
@@ -23,6 +28,9 @@ interface WordCloudProps {
 
 export function WordCloudChart({ messages }: WordCloudProps) {
   const wordData = useMemo(() => {
+    if (messages.length === 0) {
+      return []
+    }
     // Combine all message texts
     const text = messages
       .map(msg => {
@@ -62,7 +70,7 @@ export function WordCloudChart({ messages }: WordCloudProps) {
       </CardHeader>
       <CardContent className="h-[400px]">
         {wordData.length > 0 && (
-          <WordCloud
+          <ReactWordCloud
             data={wordData}
             width={500}
             height={310}

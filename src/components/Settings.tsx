@@ -14,12 +14,12 @@ export function Settings({ messages, years, selectedYear, onYearChange }: Settin
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Settings</CardTitle>
+        <CardTitle>Настройки</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
           <div>
-            <h3 className="text-sm font-medium mb-2">Year Filter</h3>
+            <h3 className="text-sm font-medium mb-2">Фильтр по году</h3>
             <YearSelector
               years={years}
               selectedYear={selectedYear}
@@ -27,7 +27,7 @@ export function Settings({ messages, years, selectedYear, onYearChange }: Settin
             />
           </div>
           <div>
-            <h3 className="text-sm font-medium mb-2">User Colors</h3>
+            <h3 className="text-sm font-medium mb-2">Цвета пользователей</h3>
             <UserColors messages={messages} />
           </div>
         </div>

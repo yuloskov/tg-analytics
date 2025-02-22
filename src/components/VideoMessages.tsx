@@ -26,7 +26,7 @@ export function VideoMessages({ messages }: VideoMessagesProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Видеосообщения</CardTitle>
+          <CardTitle>Видео сообщения</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">Нет сообщений(</p>
@@ -61,7 +61,7 @@ export function VideoMessages({ messages }: VideoMessagesProps) {
     }
   })
 
-  // Sort by count in descending order
+  // Sort by count
   userStats.sort((a, b) => b.count - a.count)
 
   // Find the longest message overall
@@ -79,13 +79,13 @@ export function VideoMessages({ messages }: VideoMessagesProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Видеосообщения</CardTitle>
+        <CardTitle>Видео сообщения</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="rounded-lg bg-muted p-3">
-              <p className="text-sm font-medium mb-1">Всего видеосообщений</p>
+              <p className="text-sm font-medium mb-1">Всего видео</p>
               <p className="text-2xl font-bold">{videoMessages.length}</p>
             </div>
             <div className="rounded-lg bg-muted p-3">

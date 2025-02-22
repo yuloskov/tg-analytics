@@ -16,10 +16,10 @@ export function YearSelector({ years, selectedYear, onYearChange }: YearSelector
   return (
     <Select value={selectedYear} onValueChange={onYearChange}>
       <SelectTrigger className="w-full">
-        <SelectValue placeholder="Select a year" />
+        <SelectValue placeholder="Выберите год" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="all">All Years</SelectItem>
+        <SelectItem value="all">Все года</SelectItem>
         {years.map((year) => (
           <SelectItem key={year} value={year.toString()}>
             {year}

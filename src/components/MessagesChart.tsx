@@ -56,31 +56,36 @@ export function MessagesChart({ messages }: MessagesChartProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Кто больше писал?</CardTitle>
+        <CardTitle>Активность в чате</CardTitle>
       </CardHeader>
-      <CardContent className="h-[400px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={monthlyData}
-            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            {users
-              .filter((user): user is string => typeof user === 'string' && user in userIdMap)
-              .map((user) => (
-                <Bar
-                  key={user}
-                  dataKey={user}
-                  stackId="a"
-                  fill={getUserColor(userIdMap[user] ?? '')}
-                />
-              ))}
-          </BarChart>
-        </ResponsiveContainer>
+      <CardContent>
+        <p className="text-sm text-muted-foreground mb-4">
+          Количество сообщений по месяцам
+        </p>
+        <div className="h-[400px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={monthlyData}
+              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              {users
+                .filter((user): user is string => typeof user === 'string' && user in userIdMap)
+                .map(user => (
+                  <Bar
+                    key={user}
+                    dataKey={user}
+                    stackId="a"
+                    fill={getUserColor(userIdMap[user] ?? '')}
+                  />
+                ))}
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </CardContent>
     </Card>
   );

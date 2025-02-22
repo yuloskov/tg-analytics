@@ -70,10 +70,10 @@ export function FileUpload({ onChatDataLoad }: FileUploadProps) {
           </svg>
 
           <p className="mb-2 text-lg font-semibold text-gray-700">
-            Drop your Telegram chat export here
+            Перетащите экспорт чата Telegram сюда
           </p>
           <p className="text-sm text-gray-500">
-            or click to select the JSON file
+            или нажмите, чтобы выбрать JSON файл
           </p>
 
           {error && (

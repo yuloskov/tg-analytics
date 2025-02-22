@@ -7,11 +7,11 @@ interface UserColorPickerProps {
 }
 
 const colors = [
-  { value: 'hsl(var(--chart-1))', label: 'Red' },
-  { value: 'hsl(var(--chart-2))', label: 'Teal' },
-  { value: 'hsl(var(--chart-3))', label: 'Navy' },
-  { value: 'hsl(var(--chart-4))', label: 'Yellow' },
-  { value: 'hsl(var(--chart-5))', label: 'Orange' },
+  { value: 'hsl(var(--chart-1))', label: 'Красный' },
+  { value: 'hsl(var(--chart-2))', label: 'Бирюзовый' },
+  { value: 'hsl(var(--chart-3))', label: 'Синий' },
+  { value: 'hsl(var(--chart-4))', label: 'Желтый' },
+  { value: 'hsl(var(--chart-5))', label: 'Оранжевый' },
 ]
 
 export function UserColorPicker({ userId, userName }: UserColorPickerProps) {
@@ -22,7 +22,7 @@ export function UserColorPicker({ userId, userName }: UserColorPickerProps) {
     <Card>
       <CardHeader>
         <CardTitle className="text-sm font-medium">
-          {userName}&apos;s Color
+          Цвет {userName}
         </CardTitle>
       </CardHeader>
       <CardContent>

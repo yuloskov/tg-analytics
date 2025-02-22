@@ -20,7 +20,7 @@ export function PrivacyNotice() {
             />
           </svg>
           <p className="text-blue-700">
-            Your privacy is important! All processing happens locally in your browser - no data is ever sent to any server.
+            Ваша конфиденциальность важна для нас! Вся обработка происходит локально в вашем браузере - данные никогда не отправляются на сервер.
           </p>
         </div>
       </CardContent>
