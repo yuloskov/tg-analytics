@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { motion } from 'framer-motion'
 import { type TopReaction, type UserFavorite } from '~/utils/dataProcessing'
+import { EmptyState } from './EmptyState'
+import { SmilePlus } from 'lucide-react'
 
 interface PopularReactionsProps {
   topReactions: TopReaction[];
@@ -8,6 +10,25 @@ interface PopularReactionsProps {
 }
 
 export function PopularReactions({ topReactions, userFavorites }: PopularReactionsProps) {
+  if (topReactions.length === 0 && userFavorites.length === 0) {
+    return (
+      <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+        <CardHeader>
+          <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
+            Статистика реакций
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <EmptyState
+            title="Нет реакций"
+            message="В этом чате пока никто не использовал реакции"
+            icon={SmilePlus}
+          />
+        </CardContent>
+      </Card>
+    )
+  }
+
   return (
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <CardHeader>

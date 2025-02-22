@@ -12,6 +12,8 @@ import {
 import { useUserColors } from '~/store/userColors'
 import { motion } from 'framer-motion'
 import { type VoiceMessagesData } from '~/utils/dataProcessing'
+import { EmptyState } from './EmptyState'
+import { MicOff } from 'lucide-react'
 
 export function VoiceMessages({ userStats, longestMessageStats, totalCount }: VoiceMessagesData) {
   const { getUserColor } = useUserColors()
@@ -25,7 +27,11 @@ export function VoiceMessages({ userStats, longestMessageStats, totalCount }: Vo
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">Нет сообщений(</p>
+          <EmptyState
+            title="Нет голосовых сообщений"
+            message="В этом чате пока нет голосовых сообщений"
+            icon={MicOff}
+          />
         </CardContent>
       </Card>
     )

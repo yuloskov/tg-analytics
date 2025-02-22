@@ -11,6 +11,8 @@ import {
 import { useUserColors } from '~/store/userColors'
 import { motion } from 'framer-motion'
 import { type ForwardedMessagesData } from '~/utils/dataProcessing'
+import { EmptyState } from './EmptyState'
+import { Forward } from 'lucide-react'
 
 export function ForwardedMessages({ userStats, totalCount }: ForwardedMessagesData) {
   const { getUserColor } = useUserColors()
@@ -24,7 +26,11 @@ export function ForwardedMessages({ userStats, totalCount }: ForwardedMessagesDa
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-slate-600 dark:text-slate-300">Нет пересланных сообщений</p>
+          <EmptyState
+            title="Нет пересланных сообщений"
+            message="В этом чате пока нет пересланных сообщений из других чатов"
+            icon={Forward}
+          />
         </CardContent>
       </Card>
     )

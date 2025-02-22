@@ -18,6 +18,7 @@ import {
 import { useUserColors } from "~/store/userColors";
 import { exampleData } from "~/utils/exampleData";
 import { PrivacyNotice } from "~/components/PrivacyNotice";
+
 export default function Home() {
   const [chatData, setChatData] = useState<ChatData | null>(null);
   const [selectedYear, setSelectedYear] = useState<string>("all");

@@ -12,6 +12,8 @@ import {
 import { useUserColors } from '~/store/userColors'
 import { motion } from 'framer-motion'
 import { type VideoMessagesData } from '~/utils/dataProcessing'
+import { EmptyState } from './EmptyState'
+import { VideoOff } from 'lucide-react'
 
 export function VideoMessages({ userStats, longestMessageStats, totalCount }: VideoMessagesData) {
   const { getUserColor } = useUserColors()
@@ -25,7 +27,11 @@ export function VideoMessages({ userStats, longestMessageStats, totalCount }: Vi
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-slate-600 dark:text-slate-300">Нет сообщений(</p>
+          <EmptyState
+            title="Нет видео сообщений"
+            message="В этом чате пока нет видео сообщений"
+            icon={VideoOff}
+          />
         </CardContent>
       </Card>
     )
