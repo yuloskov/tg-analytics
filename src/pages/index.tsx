@@ -1,51 +1,64 @@
-import { useState, useMemo } from 'react'
-import { type ChatData } from '~/types/chat'
-import { FileUpload } from '~/components/FileUpload'
-import { MessagesChart } from '~/components/MessagesChart'
-import { PrivacyNotice } from '~/components/PrivacyNotice'
-import { FirstMessages } from '~/components/FirstMessages/FirstMessages'
-import { VoiceMessages } from '~/components/VoiceMessages'
-import { VideoMessages } from '~/components/VideoMessages'
-import { Settings } from '~/components/Settings'
-import { TimeOfDayChart } from '~/components/TimeOfDayChart'
-import { WordCloudChart } from '~/components/WordCloud'
-import { ForwardedMessages } from '~/components/ForwardedMessages'
-import { PopularReactions } from '~/components/PopularReactions'
-import { Header } from '~/components/Header'
-import { ExampleTab } from '~/components/ExampleTab'
-import { HowToTab } from '~/components/HowToTab'
-import Masonry from 'react-masonry-css'
-import { processDataByYear, defaultData } from '~/utils/dataProcessing'
+import { useState, useMemo, useEffect } from "react";
+import { type ChatData } from "~/types/chat";
+import { FileUpload } from "~/components/FileUpload";
+import { MessagesChart } from "~/components/MessagesChart";
+import { PrivacyNotice } from "~/components/PrivacyNotice";
+import { FirstMessages } from "~/components/FirstMessages/FirstMessages";
+import { VoiceMessages } from "~/components/VoiceMessages";
+import { VideoMessages } from "~/components/VideoMessages";
+import { Settings } from "~/components/Settings";
+import { TimeOfDayChart } from "~/components/TimeOfDayChart";
+import { WordCloudChart } from "~/components/WordCloud";
+import { ForwardedMessages } from "~/components/ForwardedMessages";
+import { PopularReactions } from "~/components/PopularReactions";
+import { Header } from "~/components/Header";
+import { ExampleTab } from "~/components/ExampleTab";
+import { HowToTab } from "~/components/HowToTab";
+import { Loader } from "~/components/Loader";
+import Masonry from "react-masonry-css";
+import {
+  processDataByYear,
+  defaultData,
+  type ProcessedDataByYear,
+} from "~/utils/dataProcessing";
 
 export default function Home() {
-  const [chatData, setChatData] = useState<ChatData | null>(null)
-  const [selectedYear, setSelectedYear] = useState<string>('all')
-  const [activeTab, setActiveTab] = useState('main')
+  const [chatData, setChatData] = useState<ChatData | null>(null);
+  const [selectedYear, setSelectedYear] = useState<string>("all");
+  const [activeTab, setActiveTab] = useState("main");
+  const [isLoading, setIsLoading] = useState(false);
+  const [processedDataByYear, setProcessedDataByYear] =
+    useState<ProcessedDataByYear | null>(null);
 
-  // Pre-calculate data for each year using useMemo
-  const processedDataByYear = useMemo(
-    () => processDataByYear(chatData?.messages, defaultData),
-    [chatData]
-  );
+  useEffect(() => {
+    if (!chatData) return;
+    setIsLoading(true);
+    // Process data asynchronously to prevent UI blocking
+    setTimeout(() => {
+      const result = processDataByYear(chatData?.messages, defaultData);
+      setProcessedDataByYear(result);
+      setIsLoading(false);
+    }, 0);
+  }, [chatData]);
 
   // Get the current year's data
-  const processedData = processedDataByYear[selectedYear] ?? defaultData;
+  const processedData = processedDataByYear?.[selectedYear] ?? defaultData;
 
   const breakpointColumns = {
     default: 2,
     1024: 2,
-    768: 1
-  }
+    768: 1,
+  };
 
   return (
     <div className="container mx-auto p-4">
       <Header onTabChange={setActiveTab} />
-      
-      {activeTab === 'example' && <ExampleTab />}
-      
-      {activeTab === 'how-to' && <HowToTab />}
-      
-      {activeTab === 'main' && (
+
+      {activeTab === "example" && <ExampleTab />}
+
+      {activeTab === "how-to" && <HowToTab />}
+
+      {activeTab === "main" && (
         <>
           <PrivacyNotice />
 
@@ -53,7 +66,13 @@ export default function Home() {
             <FileUpload onChatDataLoad={setChatData} />
           </div>
 
-          {chatData && (
+          {isLoading && (
+            <div className="my-12">
+              <Loader size="large" />
+            </div>
+          )}
+
+          {!isLoading && chatData && (
             <>
               <div className="mb-8">
                 <Settings
@@ -65,7 +84,7 @@ export default function Home() {
 
               <Masonry
                 breakpointCols={breakpointColumns}
-                className="flex -ml-4 w-auto"
+                className="-ml-4 flex w-auto"
                 columnClassName="pl-4 bg-clip-padding"
               >
                 <div className="masonry-grid-item">
@@ -98,5 +117,5 @@ export default function Home() {
         </>
       )}
     </div>
-  )
+  );
 }
