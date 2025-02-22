@@ -99,15 +99,12 @@ export default function Home() {
 
           {!isLoading && processedDataByYear && (
             <>
-              <div className="mb-8">
+              <div className="mb-8 flex justify-end gap-2">
                 <Settings
                   {...processedData.settings}
                   selectedYear={selectedYear}
                   onYearChange={setSelectedYear}
                 />
-              </div>
-
-              <div className="mb-8 flex justify-end">
                 <ShareButton data={processedDataByYear} />
               </div>
 

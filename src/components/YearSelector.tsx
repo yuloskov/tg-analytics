@@ -6,6 +6,7 @@ import {
   SelectValue,
 } from "~/components/ui/select"
 import { motion } from 'framer-motion'
+import { GeistSans } from 'geist/font/sans'
 
 interface YearSelectorProps {
   years: number[]
@@ -24,7 +25,7 @@ export function YearSelector({ years, selectedYear, onYearChange }: YearSelector
         <SelectTrigger className="w-full bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-purple-500 dark:hover:border-purple-400 transition-colors">
           <SelectValue placeholder="Выберите год" />
         </SelectTrigger>
-        <SelectContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+        <SelectContent className={`${GeistSans.className} bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700`}>
           <SelectItem 
             value="all"
             className="hover:bg-purple-50 dark:hover:bg-purple-900/20 cursor-pointer focus:bg-purple-50 dark:focus:bg-purple-900/20"
