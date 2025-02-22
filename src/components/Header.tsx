@@ -7,8 +7,8 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-  { id: "main", label: "Анализ" },
-  { id: "upload", label: "Новый анализ" },
+  { id: "main", label: "Отчет" },
+  { id: "upload", label: "Новый отчет" },
   { id: "example", label: "Пример" },
   { id: "how-to", label: "Как скачать переписку" },
 ];

@@ -10,7 +10,7 @@ export function ExampleTab() {
       <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
         <CardHeader>
           <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-            Пример анализа
+            Пример отчета
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -20,7 +20,7 @@ export function ExampleTab() {
           <ul className="space-y-2 text-slate-600 dark:text-slate-300">
             <li>📊 Статистику сообщений по месяцам</li>
             <li>⏰ Активность в разное время суток</li>
-            <li>🎤 Анализ голосовых сообщений</li>
+            <li>🎤 отчет голосовых сообщений</li>
             <li>📹 Статистику видеосообщений</li>
             <li>🔄 Пересланные сообщения</li>
             <li>💬 Первые сообщения дня</li>

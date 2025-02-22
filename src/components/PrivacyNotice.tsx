@@ -33,7 +33,7 @@ export function PrivacyNotice() {
               </motion.div>
             </div>
             <p className="text-blue-700 dark:text-blue-300 font-medium">
-              Вся обработка происходит локально в вашем браузере - данные никогда не отправляются на сервер.
+              Вся обработка происходит в вашем браузере - данные никогда не отправляются на сервер.
             </p>
           </div>
         </CardContent>

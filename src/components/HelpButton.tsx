@@ -8,7 +8,7 @@ export function HelpButton({ onClick }: HelpButtonProps) {
   return (
     <div className="mb-6 flex items-center gap-1">
       <p className="text-base text-slate-600 dark:text-slate-400">
-        Загрузите файл с чатом, чтобы начать анализ
+        Загрузите файл с чатом, чтобы начать отчет
       </p>
       <button
         onClick={onClick}

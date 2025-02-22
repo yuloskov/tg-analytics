@@ -57,7 +57,7 @@ export function HowToTab() {
               5. Загрузите файл
             </h3>
             <p className="text-slate-600 dark:text-slate-300">
-              После экспорта загрузите полученный JSON-файл на этот сайт для анализа
+              После экспорта загрузите полученный JSON-файл на этот сайт для отчета
             </p>
           </div>
         </CardContent>
