@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { type ChatData } from '~/types/chat'
 import { FileUpload } from '~/components/FileUpload'
-import { ChatOverview } from '~/components/ChatOverview'
 import { MessagesChart } from '~/components/MessagesChart'
 import { PrivacyNotice } from '~/components/PrivacyNotice'
 import { FirstMessages } from '~/components/FirstMessages/FirstMessages'
 import { VoiceMessages } from '~/components/VoiceMessages'
+import { VideoMessages } from '~/components/VideoMessages'
 import { Settings } from '~/components/Settings'
 
 export default function Home() {
@@ -51,6 +51,7 @@ export default function Home() {
             <MessagesChart messages={filteredMessages} />
             <FirstMessages messages={filteredMessages} />
             <VoiceMessages messages={filteredMessages} />
+            <VideoMessages messages={filteredMessages} />
           </div>
         </>
       )}
