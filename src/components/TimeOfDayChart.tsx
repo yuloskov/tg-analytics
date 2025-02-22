@@ -47,16 +47,15 @@ export function TimeOfDayChart({ hourCounts, users, userIdMap }: TimeOfDayChartP
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={hourCounts}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis
+                <XAxis 
                   dataKey="label"
-                  interval={2}
-                  tick={{ fontSize: 12 }}
                   stroke="#64748b"
+                  interval={0}
+                  angle={-45}
+                  textAnchor="end"
+                  height={60}
                 />
-                <YAxis 
-                  tick={{ fontSize: 12 }}
-                  stroke="#64748b"
-                />
+                <YAxis stroke="#64748b" />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: 'white',

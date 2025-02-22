@@ -50,7 +50,14 @@ export function MessagesChart({ monthlyData, users, userIdMap }: MessagesChartPr
                 margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis dataKey="month" stroke="#64748b" />
+                <XAxis 
+                  dataKey="month" 
+                  stroke="#64748b" 
+                  interval={0}
+                  angle={-45}
+                  textAnchor="end"
+                  height={60}
+                />
                 <YAxis stroke="#64748b" />
                 <Tooltip
                   contentStyle={{

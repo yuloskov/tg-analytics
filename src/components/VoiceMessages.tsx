@@ -15,6 +15,12 @@ import { type VoiceMessagesData } from '~/utils/dataProcessing'
 import { EmptyState } from './EmptyState'
 import { MicOff } from 'lucide-react'
 
+// Function to truncate text if it's too long
+const truncateText = (text: string, maxLength = 12) => {
+  if (text.length <= maxLength) return text
+  return text.slice(0, maxLength - 2) + '..'
+}
+
 export function VoiceMessages({ userStats, longestMessageStats, totalCount }: VoiceMessagesData) {
   const { getUserColor } = useUserColors()
 
@@ -90,7 +96,15 @@ export function VoiceMessages({ userStats, longestMessageStats, totalCount }: Vo
                 margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis dataKey="user" stroke="#64748b" />
+                <XAxis 
+                  dataKey="user" 
+                  stroke="#64748b"
+                  interval={0}
+                  angle={-45}
+                  textAnchor="end"
+                  height={100}
+                  tickFormatter={(value: string) => truncateText(value)}
+                />
                 <YAxis stroke="#64748b" />
                 <Tooltip 
                   formatter={(value: number, name: string) => [value, 'Количество сообщений']}
