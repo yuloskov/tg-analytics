@@ -81,13 +81,30 @@ export default function Home() {
 
       {activeTab === "how-to" && <HowToTab />}
 
+      {activeTab === "upload" && (
+        <div className="mb-8">
+          <FileUpload onChatDataLoad={(data) => {
+            setChatData(data);
+            setActiveTab("main");
+          }} />
+        </div>
+      )}
+
       {activeTab === "main" && (
         <>
           <PrivacyNotice />
 
-          {!processedDataByYear && (
-            <div className="mb-8">
-              <FileUpload onChatDataLoad={setChatData} />
+          {!processedDataByYear && !isSharedData && (
+            <div className="flex flex-col items-center justify-center p-8 text-center">
+              <p className="mb-4 text-lg text-slate-600 dark:text-slate-400">
+                Загрузите файл с чатом, чтобы начать анализ
+              </p>
+              <button
+                onClick={() => setActiveTab("upload")}
+                className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-blue-500 rounded-lg hover:from-purple-700 hover:to-blue-600 transition-all duration-300"
+              >
+                Новый анализ
+              </button>
             </div>
           )}
 

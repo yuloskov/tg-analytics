@@ -8,10 +8,11 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-  { id: 'main', label: 'Анализ' },
-  { id: 'example', label: 'Пример' },
-  { id: 'how-to', label: 'Как скачать переписку' },
-]
+  { id: "main", label: "Анализ" },
+  { id: "upload", label: "Новый анализ" },
+  { id: "example", label: "Пример" },
+  { id: "how-to", label: "Как скачать переписку" },
+];
 
 interface HeaderProps {
   onTabChange: (tabId: string) => void
