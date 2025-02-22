@@ -12,28 +12,11 @@ export interface ProcessedMessagesData {
   userIdMap: Record<string, string>;
 }
 
-export function processMessagesData(messages: Message[]): ProcessedMessagesData {
-  // Get unique users and their IDs
-  const users = Array.from(
-    new Set(
-      messages
-        .map((msg) => msg.from)
-        .filter((from): from is string => typeof from === 'string')
-    )
-  );
-
-  const userIdMap: Record<string, string> = Object.fromEntries(
-    messages
-      .filter((msg): msg is Message & { from: string; from_id: string } => 
-        typeof msg.from === 'string' && typeof msg.from_id === 'string'
-      )
-      .map((msg) => [msg.from, msg.from_id])
-  );
-
+export function processMessagesData(messages: Message[], baseData: BaseData): ProcessedMessagesData {
   // Initialize data structure for each month
   const monthlyData = MONTHS.map((month) => ({
     month,
-    ...Object.fromEntries(users.map((user) => [user, 0])),
+    ...Object.fromEntries(baseData.users.map((user) => [user, 0])),
   }));
 
   // Count messages by month and user
@@ -48,8 +31,8 @@ export function processMessagesData(messages: Message[]): ProcessedMessagesData 
 
   return {
     monthlyData,
-    users,
-    userIdMap,
+    users: baseData.users,
+    userIdMap: baseData.userIdMap,
   };
 }
 
@@ -65,30 +48,12 @@ export interface TimeOfDayData {
   userIdMap: Record<string, string>;
 }
 
-export function processTimeOfDayData(messages: Message[]): TimeOfDayData {
-  // Get unique users
-  const users = Array.from(
-    new Set(
-      messages
-        .map((msg) => msg.from)
-        .filter((from): from is string => typeof from === 'string')
-    )
-  );
-
-  // Create user ID map for colors
-  const userIdMap: Record<string, string> = Object.fromEntries(
-    messages
-      .filter((msg): msg is Message & { from: string; from_id: string } => 
-        typeof msg.from === 'string' && typeof msg.from_id === 'string'
-      )
-      .map((msg) => [msg.from, msg.from_id])
-  );
-
+export function processTimeOfDayData(messages: Message[], baseData: BaseData): TimeOfDayData {
   // Initialize array for 24 hours with counts for each user
   const hourCounts: HourCount[] = Array.from({ length: 24 }, (_, i) => ({
     hour: i,
     label: `${i.toString().padStart(2, '0')}:00`,
-    ...Object.fromEntries(users.map(user => [user, 0]))
+    ...Object.fromEntries(baseData.users.map(user => [user, 0]))
   }));
 
   // Count messages for each hour and user
@@ -102,8 +67,8 @@ export function processTimeOfDayData(messages: Message[]): TimeOfDayData {
 
   return {
     hourCounts,
-    users,
-    userIdMap,
+    users: baseData.users,
+    userIdMap: baseData.userIdMap,
   };
 }
 
@@ -137,32 +102,14 @@ function analyzeConversationInitiators(messages: Message[]): ConversationInitiat
   return initiators;
 }
 
-export function processFirstMessagesData(messages: Message[]): FirstMessagesData {
-  // Get unique users
-  const users = Array.from(
-    new Set(
-      messages
-        .map((msg) => msg.from)
-        .filter((from): from is string => typeof from === 'string')
-    )
-  );
-
-  // Create user ID map for colors
-  const userIdMap: Record<string, string> = Object.fromEntries(
-    messages
-      .filter((msg): msg is Message & { from: string; from_id: string } => 
-        typeof msg.from === 'string' && typeof msg.from_id === 'string'
-      )
-      .map((msg) => [msg.from, msg.from_id])
-  );
-
+export function processFirstMessagesData(messages: Message[], baseData: BaseData): FirstMessagesData {
   // Get conversation initiators
   const conversationInitiators = analyzeConversationInitiators(messages);
   
   // Initialize monthly data structure
   const monthlyInitiations = MONTHS.map(month => ({
     month,
-    ...Object.fromEntries(users.map(user => [user, 0]))
+    ...Object.fromEntries(baseData.users.map(user => [user, 0]))
   }));
 
   // Count initiations by month and user
@@ -177,8 +124,8 @@ export function processFirstMessagesData(messages: Message[]): FirstMessagesData
 
   return {
     monthlyInitiations,
-    users,
-    userIdMap,
+    users: baseData.users,
+    userIdMap: baseData.userIdMap,
   };
 }
 
@@ -292,24 +239,30 @@ export function processVoiceMessagesData(messages: Message[]): VoiceMessagesData
     };
   }
 
-  // Get unique users
-  const users = Array.from(new Set(voiceMessages.map(msg => msg.from)));
-  
   // Calculate statistics for each user
-  const userStats = users.map(user => {
-    const userVoiceMessages = voiceMessages.filter(msg => msg.from === user);
-    const count = userVoiceMessages.length;
-    const longestMessage = userVoiceMessages.reduce((max, msg) => 
-      Math.max(max, msg.duration_seconds ?? 0), 0
-    );
+  const userStats = voiceMessages.reduce((acc, msg) => {
+    if (!msg.from) return acc;
     
-    return {
-      user: user ?? '',
-      count,
-      longestMessage,
-      userId: userVoiceMessages[0]?.from_id ?? '', // Store user ID for color
-    };
-  }).sort((a, b) => b.count - a.count); // Sort by count in descending order
+    const existingStat = acc.find(stat => stat.user === msg.from);
+    const duration = msg.duration_seconds ?? 0;
+    
+    if (existingStat) {
+      existingStat.count++;
+      existingStat.longestMessage = Math.max(existingStat.longestMessage, duration);
+    } else {
+      acc.push({
+        user: msg.from,
+        count: 1,
+        longestMessage: duration,
+        userId: msg.from_id ?? '',
+      });
+    }
+    
+    return acc;
+  }, [] as UserVoiceStat[]);
+
+  // Sort by count in descending order
+  userStats.sort((a, b) => b.count - a.count);
 
   // Find the longest message overall
   const longestMessageStats = userStats.reduce((max, curr) => 
@@ -351,24 +304,30 @@ export function processVideoMessagesData(messages: Message[]): VideoMessagesData
     };
   }
 
-  // Get unique users
-  const users = Array.from(new Set(videoMessages.map(msg => msg.from)));
-  
   // Calculate statistics for each user
-  const userStats = users.map(user => {
-    const userVideoMessages = videoMessages.filter(msg => msg.from === user);
-    const count = userVideoMessages.length;
-    const longestMessage = userVideoMessages.reduce((max, msg) => 
-      Math.max(max, msg.duration_seconds ?? 0), 0
-    );
+  const userStats = videoMessages.reduce((acc, msg) => {
+    if (!msg.from) return acc;
     
-    return {
-      user: user ?? '',
-      count,
-      longestMessage,
-      userId: userVideoMessages[0]?.from_id ?? '',
-    };
-  }).sort((a, b) => b.count - a.count); // Sort by count in descending order
+    const existingStat = acc.find(stat => stat.user === msg.from);
+    const duration = msg.duration_seconds ?? 0;
+    
+    if (existingStat) {
+      existingStat.count++;
+      existingStat.longestMessage = Math.max(existingStat.longestMessage, duration);
+    } else {
+      acc.push({
+        user: msg.from,
+        count: 1,
+        longestMessage: duration,
+        userId: msg.from_id ?? '',
+      });
+    }
+    
+    return acc;
+  }, [] as UserVideoStat[]);
+
+  // Sort by count in descending order
+  userStats.sort((a, b) => b.count - a.count);
 
   // Find the longest message overall
   const longestMessageStats = userStats.reduce((max, curr) => 
@@ -562,16 +521,52 @@ export interface ProcessedChatData {
   settings: SettingsData;
 }
 
+interface BaseData {
+  users: string[];
+  userIdMap: Record<string, string>;
+}
+
+function calculateBaseData(messages: Message[]): BaseData {
+  // Get unique users
+  const users = Array.from(
+    new Set(
+      messages
+        .map((msg) => msg.from)
+        .filter((from): from is string => typeof from === 'string')
+    )
+  );
+
+  // Create user ID map for colors
+  const userIdMap: Record<string, string> = Object.fromEntries(
+    messages
+      .filter((msg): msg is Message & { from: string; from_id: string } => 
+        typeof msg.from === 'string' && typeof msg.from_id === 'string'
+      )
+      .map((msg) => [msg.from, msg.from_id])
+  );
+
+  return { users, userIdMap };
+}
+
 export function processChatData(messages: Message[], allMessages: Message[]): ProcessedChatData {
+  // Calculate base data once
+  const baseData = calculateBaseData(allMessages);
+
   return {
-    messages: processMessagesData(messages),
-    timeOfDay: processTimeOfDayData(messages),
-    firstMessages: processFirstMessagesData(messages),
+    messages: processMessagesData(messages, baseData),
+    timeOfDay: processTimeOfDayData(messages, baseData),
+    firstMessages: processFirstMessagesData(messages, baseData),
     reactions: processReactionsData(messages),
     voiceMessages: processVoiceMessagesData(messages),
     videoMessages: processVideoMessagesData(messages),
     wordCloud: processWordCloudData(messages),
     forwardedMessages: processForwardedMessagesData(messages),
-    settings: processSettingsData(allMessages),
+    settings: {
+      ...baseData,
+      years: allMessages.length > 0
+        ? Array.from(new Set(allMessages.map(msg => new Date(msg.date).getFullYear())))
+            .sort((a, b) => b - a)
+        : []
+    },
   };
 }
