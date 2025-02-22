@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { type ChatData } from '~/types/chat'
 import { FileUpload } from '~/components/FileUpload'
 import { MessagesChart } from '~/components/MessagesChart'
@@ -15,70 +15,21 @@ import { Header } from '~/components/Header'
 import { ExampleTab } from '~/components/ExampleTab'
 import { HowToTab } from '~/components/HowToTab'
 import Masonry from 'react-masonry-css'
-import { processChatData } from '~/utils/dataProcessing'
-
-// Default empty data structures
-const defaultData = {
-  messages: {
-    monthlyData: [],
-    users: [],
-    userIdMap: {},
-  },
-  timeOfDay: {
-    hourCounts: [],
-    users: [],
-    userIdMap: {},
-  },
-  firstMessages: {
-    monthlyInitiations: [],
-    users: [],
-    userIdMap: {},
-  },
-  reactions: {
-    topReactions: [],
-    userFavorites: [],
-  },
-  voiceMessages: {
-    userStats: [],
-    longestMessageStats: { user: '', longestMessage: 0 },
-    totalCount: 0,
-  },
-  videoMessages: {
-    userStats: [],
-    longestMessageStats: { user: '', longestMessage: 0 },
-    totalCount: 0,
-  },
-  wordCloud: {
-    wordData: [],
-  },
-  forwardedMessages: {
-    userStats: [],
-    totalCount: 0,
-  },
-  settings: {
-    users: [],
-    userIdMap: {},
-    years: [],
-  },
-}
+import { processDataByYear, defaultData } from '~/utils/dataProcessing'
 
 export default function Home() {
   const [chatData, setChatData] = useState<ChatData | null>(null)
   const [selectedYear, setSelectedYear] = useState<string>('all')
   const [activeTab, setActiveTab] = useState('main')
 
-  // Filter out messages with undefined users before passing to components
-  const validMessages = chatData?.messages.filter(msg => msg.from !== undefined) ?? []
+  // Pre-calculate data for each year using useMemo
+  const processedDataByYear = useMemo(
+    () => processDataByYear(chatData?.messages, defaultData),
+    [chatData]
+  );
 
-  // Filter messages by selected year
-  const filteredMessages = selectedYear === 'all'
-    ? validMessages
-    : validMessages.filter(msg => new Date(msg.date).getFullYear() === parseInt(selectedYear))
-
-  // Process all data at once, using validMessages for settings and filteredMessages for charts
-  const processedData = validMessages.length > 0 
-    ? processChatData(filteredMessages, validMessages) 
-    : defaultData
+  // Get the current year's data
+  const processedData = processedDataByYear[selectedYear] ?? defaultData;
 
   const breakpointColumns = {
     default: 2,

@@ -1,6 +1,51 @@
 import { type Message } from "~/types/chat";
 import { MONTHS } from "~/constants";
 
+// Default empty data structures
+export const defaultData: ProcessedChatData = {
+  messages: {
+    monthlyData: [],
+    users: [],
+    userIdMap: {},
+  },
+  timeOfDay: {
+    hourCounts: [],
+    users: [],
+    userIdMap: {},
+  },
+  firstMessages: {
+    monthlyInitiations: [],
+    users: [],
+    userIdMap: {},
+  },
+  reactions: {
+    topReactions: [],
+    userFavorites: [],
+  },
+  voiceMessages: {
+    userStats: [],
+    longestMessageStats: { user: '', longestMessage: 0 },
+    totalCount: 0,
+  },
+  videoMessages: {
+    userStats: [],
+    longestMessageStats: { user: '', longestMessage: 0 },
+    totalCount: 0,
+  },
+  wordCloud: {
+    wordData: [],
+  },
+  forwardedMessages: {
+    userStats: [],
+    totalCount: 0,
+  },
+  settings: {
+    users: [],
+    userIdMap: {},
+    years: [],
+  },
+}
+
 export interface MonthlyMessageData {
   month: string;
   [key: string]: number | string;
@@ -450,4 +495,36 @@ export function processChatData(messages: Message[], allMessages: Message[]): Pr
         : []
     },
   };
+}
+
+export interface ProcessedDataByYear {
+  [key: string]: ProcessedChatData;
+  all: ProcessedChatData;
+}
+
+export function processDataByYear(messages: Message[] | undefined, defaultData: ProcessedChatData): ProcessedDataByYear {
+  if (!messages) return { all: defaultData };
+
+  // Filter out messages with undefined users
+  const validMessages = messages.filter(msg => msg.from !== undefined);
+  if (validMessages.length === 0) return { all: defaultData };
+
+  // Get unique years from messages
+  const years = Array.from(new Set(validMessages.map(msg => 
+    new Date(msg.date).getFullYear()
+  ))).sort((a, b) => b - a);
+
+  // Process data for each year and all years combined
+  const dataByYear = years.reduce((acc, year) => {
+    const yearMessages = validMessages.filter(msg => 
+      new Date(msg.date).getFullYear() === year
+    );
+    acc[year.toString()] = processChatData(yearMessages, validMessages);
+    return acc;
+  }, {} as ProcessedDataByYear);
+
+  // Add data for all years
+  dataByYear.all = processChatData(validMessages, validMessages);
+
+  return dataByYear;
 }
