@@ -22,6 +22,19 @@ export function VideoMessages({ messages }: VideoMessagesProps) {
   // Get only video messages
   const videoMessages = messages.filter(msg => msg.media_type === 'video_message')
   
+  if (videoMessages.length === 0) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Видеосообщения</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-muted-foreground">Нет сообщений(</p>
+        </CardContent>
+      </Card>
+    )
+  }
+
   // Get unique users
   const users = Array.from(new Set(videoMessages.map(msg => msg.from)))
   

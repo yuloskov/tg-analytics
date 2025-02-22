@@ -22,6 +22,19 @@ export function VoiceMessages({ messages }: VoiceMessagesProps) {
   // Get only voice messages
   const voiceMessages = messages.filter(msg => msg.media_type === 'voice_message')
   
+  if (voiceMessages.length === 0) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Голосовые сообщения</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-muted-foreground">Нет сообщений(</p>
+        </CardContent>
+      </Card>
+    )
+  }
+
   // Get unique users
   const users = Array.from(new Set(voiceMessages.map(msg => msg.from)))
   

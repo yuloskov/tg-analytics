@@ -8,6 +8,7 @@ import { VoiceMessages } from '~/components/VoiceMessages'
 import { VideoMessages } from '~/components/VideoMessages'
 import { Settings } from '~/components/Settings'
 import { TimeOfDayChart } from '~/components/TimeOfDayChart'
+import { WordCloudChart } from '~/components/WordCloud'
 
 export default function Home() {
   const [chatData, setChatData] = useState<ChatData | null>(null)
@@ -54,6 +55,7 @@ export default function Home() {
             <FirstMessages messages={filteredMessages} />
             <VoiceMessages messages={filteredMessages} />
             <VideoMessages messages={filteredMessages} />
+            <WordCloudChart messages={filteredMessages} />
           </div>
         </>
       )}
