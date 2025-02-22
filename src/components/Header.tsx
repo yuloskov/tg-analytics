@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Github } from 'lucide-react'
-import { ExampleTab } from './ExampleTab'
-import { HowToTab } from './HowToTab'
+import { Github, MessageCircle } from 'lucide-react'
 
 interface Tab {
   id: string
@@ -35,22 +33,36 @@ export function Header({ onTabChange }: HeaderProps) {
       <div className="flex items-center justify-between p-4">
         <div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-            TG Analytics
+            TG Chat Analyzer
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 mt-1">
-            Анализируйте свои чаты в Telegram
-          </p>
+          <div className="mt-2 inline-block">
+            <span className="px-3 py-1 text-sm rounded-full bg-gradient-to-r from-orange-500/10 to-amber-500/10 border border-orange-200/20 text-orange-700 dark:text-orange-300">
+              Анализируйте свои чаты в Telegram
+            </span>
+          </div>
         </div>
 
-        <a
-          href="https://github.com/yuloskov/tg-analytics"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
-        >
-          <Github className="w-6 h-6" />
-          <span className="hidden sm:inline">GitHub</span>
-        </a>
+        <div className="flex items-center gap-2">
+          <a
+            href="https://t.me/yuloskov"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 hover:from-blue-500/20 hover:to-cyan-500/20 transition-all duration-300 border border-slate-200/20"
+          >
+            <MessageCircle className="w-5 h-5 text-slate-700 dark:text-slate-200" />
+            <span className="hidden sm:inline text-sm font-medium text-slate-700 dark:text-slate-200">Support</span>
+          </a>
+
+          <a
+            href="https://github.com/yuloskov/tg-analytics"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-600/10 to-blue-500/10 hover:from-purple-600/20 hover:to-blue-500/20 transition-all duration-300 border border-slate-200/20"
+          >
+            <Github className="w-5 h-5 text-slate-700 dark:text-slate-200" />
+            <span className="hidden sm:inline text-sm font-medium text-slate-700 dark:text-slate-200">Star on GitHub</span>
+          </a>
+        </div>
       </div>
 
       <div className="px-4 pb-4">
