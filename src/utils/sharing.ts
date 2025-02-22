@@ -50,4 +50,12 @@ export function generateShareableUrl(
   const url = new URL(window.location.href);
   url.hash = encodedData;
   return url.toString();
+}
+
+export function clearSharedDataFromUrl(): void {
+  if (typeof window === "undefined") return;
+  
+  // Remove the hash using both modern and legacy methods for maximum compatibility
+  window.history.pushState(null, "", window.location.pathname + window.location.search);
+  window.location.hash = "";
 } 

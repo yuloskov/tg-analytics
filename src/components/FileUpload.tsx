@@ -3,12 +3,14 @@ import { useDropzone } from 'react-dropzone'
 import { type ChatData } from '~/types/chat'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { motion } from 'framer-motion'
+import { HelpButton } from './HelpButton'
 
 interface FileUploadProps {
   onChatDataLoad: (data: ChatData) => void
+  onHowToClick: () => void
 }
 
-export function FileUpload({ onChatDataLoad }: FileUploadProps) {
+export function FileUpload({ onChatDataLoad, onHowToClick }: FileUploadProps) {
   const [error, setError] = useState<string | null>(null)
   const [isDragging, setIsDragging] = useState(false)
 
@@ -42,49 +44,47 @@ export function FileUpload({ onChatDataLoad }: FileUploadProps) {
   return (
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <CardHeader>
-        <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
+        <CardTitle className="bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-2xl text-transparent">
           Загрузка чата
         </CardTitle>
+        <HelpButton onClick={onHowToClick} />
       </CardHeader>
       <CardContent>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+          className="rounded-lg bg-white shadow-sm transition-shadow hover:shadow-md dark:bg-slate-800"
         >
+
           <div
             {...getRootProps()}
-            className={`
-              flex flex-col items-center justify-center p-8 
-              border-2 border-dashed rounded-lg cursor-pointer
-              transition-all duration-200
-              ${isDragging 
-                ? 'border-purple-500 bg-purple-50 dark:border-purple-400 dark:bg-purple-900/20' 
-                : 'border-slate-300 hover:border-slate-400 dark:border-slate-600 dark:hover:border-slate-500'
-              }
-            `}
+            className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-8 transition-all duration-200 ${
+              isDragging
+                ? "border-purple-500 bg-purple-50 dark:border-purple-400 dark:bg-purple-900/20"
+                : "border-slate-300 hover:border-slate-400 dark:border-slate-600 dark:hover:border-slate-500"
+            } `}
           >
             <input {...getInputProps()} />
-            
+
             <motion.div
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.1 }}
             >
-              <svg 
-                className={`w-16 h-16 mb-4 ${
-                  isDragging 
-                    ? 'text-purple-500 dark:text-purple-400' 
-                    : 'text-slate-400 dark:text-slate-500'
-                }`} 
-                fill="none" 
-                stroke="currentColor" 
+              <svg
+                className={`mb-4 h-16 w-16 ${
+                  isDragging
+                    ? "text-purple-500 dark:text-purple-400"
+                    : "text-slate-400 dark:text-slate-500"
+                }`}
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
                   d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                 />
               </svg>
@@ -116,5 +116,5 @@ export function FileUpload({ onChatDataLoad }: FileUploadProps) {
         </motion.div>
       </CardContent>
     </Card>
-  )
+  );
 } 

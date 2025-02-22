@@ -16,7 +16,12 @@ import { ExampleTab } from "~/components/ExampleTab";
 import { HowToTab } from "~/components/HowToTab";
 import { Loader } from "~/components/Loader";
 import { ShareButton } from "~/components/ShareButton";
-import { getSharedDataFromUrl, decodeSharedData } from "~/utils/sharing";
+import { UploadPrompt } from "~/components/UploadPrompt";
+import {
+  getSharedDataFromUrl,
+  decodeSharedData,
+  clearSharedDataFromUrl,
+} from "~/utils/sharing";
 import Masonry from "react-masonry-css";
 import {
   processDataByYear,
@@ -75,7 +80,15 @@ export default function Home() {
 
   return (
     <div className="container mx-auto p-4">
-      <Header onTabChange={setActiveTab} />
+      <Header
+        activeTab={activeTab}
+        onTabChange={(tab) => {
+          if (tab === "upload") {
+            clearSharedDataFromUrl();
+          }
+          setActiveTab(tab);
+        }}
+      />
 
       {activeTab === "example" && <ExampleTab />}
 
@@ -83,10 +96,14 @@ export default function Home() {
 
       {activeTab === "upload" && (
         <div className="mb-8">
-          <FileUpload onChatDataLoad={(data) => {
-            setChatData(data);
-            setActiveTab("main");
-          }} />
+          <FileUpload
+            onChatDataLoad={(data) => {
+              clearSharedDataFromUrl();
+              setChatData(data);
+              setActiveTab("main");
+            }}
+            onHowToClick={() => setActiveTab("how-to")}
+          />
         </div>
       )}
 
@@ -94,18 +111,14 @@ export default function Home() {
         <>
           <PrivacyNotice />
 
-          {!processedDataByYear && !isSharedData && (
-            <div className="flex flex-col items-center justify-center p-8 text-center">
-              <p className="mb-4 text-lg text-slate-600 dark:text-slate-400">
-                Загрузите файл с чатом, чтобы начать анализ
-              </p>
-              <button
-                onClick={() => setActiveTab("upload")}
-                className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-blue-500 rounded-lg hover:from-purple-700 hover:to-blue-600 transition-all duration-300"
-              >
-                Новый анализ
-              </button>
-            </div>
+          {!processedDataByYear && !isSharedData && !isLoading && (
+            <UploadPrompt
+              onUploadClick={() => {
+                clearSharedDataFromUrl();
+                setActiveTab("upload");
+              }}
+              onHowToClick={() => setActiveTab("how-to")}
+            />
           )}
 
           {isLoading && (

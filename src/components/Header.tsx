@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Github, MessageCircle } from 'lucide-react'
 
@@ -16,16 +15,10 @@ const tabs: Tab[] = [
 
 interface HeaderProps {
   onTabChange: (tabId: string) => void
+  activeTab: string
 }
 
-export function Header({ onTabChange }: HeaderProps) {
-  const [activeTab, setActiveTab] = useState('main')
-
-  const handleTabChange = (tabId: string) => {
-    setActiveTab(tabId)
-    onTabChange(tabId)
-  }
-
+export function Header({ onTabChange, activeTab }: HeaderProps) {
   return (
     <div className="relative mb-8">
       {/* Background gradient */}
@@ -71,7 +64,7 @@ export function Header({ onTabChange }: HeaderProps) {
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => handleTabChange(tab.id)}
+              onClick={() => onTabChange(tab.id)}
               className={`
                 relative rounded-lg px-3 py-1.5 text-sm font-medium outline-2 outline-sky-400 transition
                 ${
