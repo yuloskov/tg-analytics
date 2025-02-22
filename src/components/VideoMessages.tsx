@@ -88,7 +88,7 @@ export function VideoMessages({ userStats, longestMessageStats, totalCount }: Vi
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow h-[300px]"
+            className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow h-[500px] md:h-[300px]"
           >
             <ResponsiveContainer width="100%" height="100%">
               <BarChart

@@ -30,7 +30,7 @@ export function Header({ onTabChange, activeTab }: HeaderProps) {
             TG Chat Analyzer
           </h1>
           <div className="mt-2 inline-block">
-            <span className="rounded-full border border-orange-200/20 bg-gradient-to-r from-orange-500/10 to-amber-500/10 px-3 py-1 text-sm text-orange-700 dark:text-orange-300">
+            <span className="text-sm text-slate-700 dark:text-slate-200">
               Анализируйте свои чаты в Telegram
             </span>
           </div>
@@ -64,7 +64,7 @@ export function Header({ onTabChange, activeTab }: HeaderProps) {
       </div>
 
       <div className="px-4 pb-4">
-        <div className="flex space-x-1">
+        <div className="flex flex-col space-x-1 md:flex-row">
           {tabs.map((tab) => (
             <button
               key={tab.id}

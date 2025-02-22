@@ -95,10 +95,10 @@ export function FileUpload({ onChatDataLoad, onHowToClick }: FileUploadProps) {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <p className="mb-2 text-lg font-semibold text-slate-700 dark:text-slate-200">
+              <p className="mb-2 text-lg font-semibold text-slate-700 dark:text-slate-200 text-center">
                 Перетащите экспорт чата Telegram сюда
               </p>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
+              <p className="text-sm text-slate-500 dark:text-slate-400 text-center">
                 или нажмите, чтобы выбрать JSON файл
               </p>
             </motion.div>

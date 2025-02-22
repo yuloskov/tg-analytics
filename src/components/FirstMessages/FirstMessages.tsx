@@ -43,7 +43,7 @@ export function FirstMessages({ monthlyInitiations, users, userIdMap }: FirstMes
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow h-[400px]"
+              className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow h-[800px] md:h-[400px]"
             >
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart

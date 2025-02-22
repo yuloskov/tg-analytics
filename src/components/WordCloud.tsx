@@ -34,7 +34,7 @@ export function WordCloudChart({ wordData }: WordCloudData) {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow h-[400px]"
+          className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow h-[310px] md:h-[400px]"
         >
           {processedWordData.length > 0 && (
             <ReactWordCloud
