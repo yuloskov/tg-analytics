@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import { type Message } from '~/types/chat'
 import {
   BarChart,
   Bar,
@@ -10,53 +9,18 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts'
-import { analyzeChat } from './chatAnalysis'
 import { useUserColors } from '~/store/userColors'
-import { MONTHS } from '~/constants'
 import { motion } from 'framer-motion'
+import { type MonthlyMessageData } from '~/utils/dataProcessing'
 
 interface FirstMessagesProps {
-  messages: Message[]
+  monthlyInitiations: MonthlyMessageData[];
+  users: string[];
+  userIdMap: Record<string, string>;
 }
 
-interface MonthlyData {
-  month: string;
-  [key: string]: number | string;
-}
-
-export function FirstMessages({ messages }: FirstMessagesProps) {
+export function FirstMessages({ monthlyInitiations, users, userIdMap }: FirstMessagesProps) {
   const { getUserColor } = useUserColors()
-  const analysis = analyzeChat(messages)
-  const users = Array.from(
-    new Set(
-      messages
-        .map((msg) => msg.from)
-        .filter((from): from is string => typeof from === 'string')
-    )
-  );
-  const userIdMap: Record<string, string> = Object.fromEntries(
-    messages
-      .filter((msg): msg is Message & { from: string; from_id: string } => 
-        typeof msg.from === 'string' && typeof msg.from_id === 'string'
-      )
-      .map((msg) => [msg.from, msg.from_id])
-  );
-  
-  // Initialize monthly data structure
-  const monthlyInitiations: MonthlyData[] = MONTHS.map(month => ({
-    month,
-    ...Object.fromEntries(users.map(user => [user, 0]))
-  }))
-
-  // Count initiations by month and user
-  analysis.conversationInitiators.forEach(initiation => {
-    const date = new Date(initiation.time)
-    const monthIndex = date.getMonth()
-    const monthData = monthlyInitiations[monthIndex]
-    if (initiation.user && monthData) {
-      monthData[initiation.user] = (monthData[initiation.user] as number) + 1
-    }
-  })
 
   return (
     <div className="space-y-4">

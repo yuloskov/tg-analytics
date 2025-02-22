@@ -1,4 +1,3 @@
-import { type Message } from '~/types/chat'
 import {
   BarChart,
   Bar,
@@ -12,53 +11,16 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { useUserColors } from '~/store/userColors'
 import { motion } from 'framer-motion'
+import { type HourCount } from '~/utils/dataProcessing'
 
 interface TimeOfDayChartProps {
-  messages: Message[]
+  hourCounts: HourCount[];
+  users: string[];
+  userIdMap: Record<string, string>;
 }
 
-interface HourCount {
-  hour: number
-  label: string
-  [key: string]: number | string  // Allow string indexing for user names
-}
-
-export function TimeOfDayChart({ messages }: TimeOfDayChartProps) {
+export function TimeOfDayChart({ hourCounts, users, userIdMap }: TimeOfDayChartProps) {
   const { getUserColor } = useUserColors()
-
-  // Get unique users
-  const users = Array.from(
-    new Set(
-      messages
-        .map((msg) => msg.from)
-        .filter((from): from is string => typeof from === 'string')
-    )
-  )
-
-  // Create user ID map for colors
-  const userIdMap: Record<string, string> = Object.fromEntries(
-    messages
-      .filter((msg): msg is Message & { from: string; from_id: string } => 
-        typeof msg.from === 'string' && typeof msg.from_id === 'string'
-      )
-      .map((msg) => [msg.from, msg.from_id])
-  )
-
-  // Initialize array for 24 hours with counts for each user
-  const hourCounts: HourCount[] = Array.from({ length: 24 }, (_, i) => ({
-    hour: i,
-    label: `${i.toString().padStart(2, '0')}:00`,
-    ...Object.fromEntries(users.map(user => [user, 0]))
-  }))
-
-  // Count messages for each hour and user
-  messages.forEach((msg) => {
-    const hour = new Date(msg.date).getHours()
-    if (msg.from && typeof msg.from === 'string' && hourCounts[hour]) {
-      const currentCount = hourCounts[hour][msg.from] as number
-      hourCounts[hour][msg.from] = currentCount + 1
-    }
-  })
 
   return (
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">

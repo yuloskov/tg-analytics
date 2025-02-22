@@ -15,6 +15,16 @@ import { Header } from '~/components/Header'
 import { ExampleTab } from '~/components/ExampleTab'
 import { HowToTab } from '~/components/HowToTab'
 import Masonry from 'react-masonry-css'
+import { 
+  processMessagesData, 
+  processTimeOfDayData, 
+  processFirstMessagesData,
+  processReactionsData,
+  processVoiceMessagesData,
+  processVideoMessagesData,
+  processWordCloudData, 
+  processForwardedMessagesData
+} from '~/utils/dataProcessing'
 
 export default function Home() {
   const [chatData, setChatData] = useState<ChatData | null>(null)
@@ -74,28 +84,28 @@ export default function Home() {
                 columnClassName="pl-4 bg-clip-padding"
               >
                 <div className="masonry-grid-item">
-                  <MessagesChart messages={filteredMessages} />
+                  <MessagesChart {...processMessagesData(filteredMessages)} />
                 </div>
                 <div className="masonry-grid-item">
-                  <TimeOfDayChart messages={filteredMessages} />
+                  <TimeOfDayChart {...processTimeOfDayData(filteredMessages)} />
                 </div>
                 <div className="masonry-grid-item">
-                  <FirstMessages messages={filteredMessages} />
+                  <FirstMessages {...processFirstMessagesData(filteredMessages)} />
                 </div>
                 <div className="masonry-grid-item">
-                  <PopularReactions messages={filteredMessages} />
+                  <PopularReactions {...processReactionsData(filteredMessages)} />
                 </div>
                 <div className="masonry-grid-item">
-                  <VoiceMessages messages={filteredMessages} />
+                  <VoiceMessages {...processVoiceMessagesData(filteredMessages)} />
                 </div>
                 <div className="masonry-grid-item">
-                  <VideoMessages messages={filteredMessages} />
+                  <VideoMessages {...processVideoMessagesData(filteredMessages)} />
                 </div>
                 <div className="masonry-grid-item">
-                  <WordCloudChart messages={filteredMessages} />
+                  <WordCloudChart {...processWordCloudData(filteredMessages)} />
                 </div>
                 <div className="masonry-grid-item">
-                  <ForwardedMessages messages={filteredMessages} />
+                  <ForwardedMessages {...processForwardedMessagesData(filteredMessages)} />
                 </div>
               </Masonry>
             </>

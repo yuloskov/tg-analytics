@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import { type Message } from '~/types/chat'
 import {
   BarChart,
   Bar,
@@ -11,24 +10,12 @@ import {
 } from 'recharts'
 import { useUserColors } from '~/store/userColors'
 import { motion } from 'framer-motion'
+import { type ForwardedMessagesData } from '~/utils/dataProcessing'
 
-interface ForwardedMessagesProps {
-  messages: Message[]
-}
-
-interface ForwardStats {
-  user: string
-  userId: string
-  sources: { source: string; count: number }[]
-}
-
-export function ForwardedMessages({ messages }: ForwardedMessagesProps) {
+export function ForwardedMessages({ userStats, totalCount }: ForwardedMessagesData) {
   const { getUserColor } = useUserColors()
 
-  // Get only forwarded messages
-  const forwardedMessages = messages.filter(msg => msg.forwarded_from !== undefined)
-  
-  if (forwardedMessages.length === 0) {
+  if (totalCount === 0) {
     return (
       <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
         <CardHeader>
@@ -42,41 +29,6 @@ export function ForwardedMessages({ messages }: ForwardedMessagesProps) {
       </Card>
     )
   }
-
-  // Get unique users who forwarded messages
-  const users = Array.from(new Set(forwardedMessages.map(msg => msg.from)))
-  
-  // Calculate statistics for each user
-  const userStats: ForwardStats[] = users.map(user => {
-    const userForwardedMessages = forwardedMessages.filter(msg => msg.from === user)
-    
-    // Count messages by source for this user
-    const sourceCount: Record<string, number> = {}
-    userForwardedMessages.forEach(msg => {
-      if (msg.forwarded_from) {
-        sourceCount[msg.forwarded_from] = (sourceCount[msg.forwarded_from] ?? 0) + 1
-      }
-    })
-    
-    // Convert to array and sort by count
-    const sources = Object.entries(sourceCount)
-      .map(([source, count]) => ({ source, count }))
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 3) // Keep only top 3 sources
-    
-    return {
-      user,
-      userId: userForwardedMessages[0]?.from_id ?? '',
-      sources,
-    }
-  })
-
-  // Sort users by total number of forwards
-  userStats.sort((a, b) => {
-    const totalA = a.sources.reduce((sum, src) => sum + src.count, 0)
-    const totalB = b.sources.reduce((sum, src) => sum + src.count, 0)
-    return totalB - totalA
-  })
 
   return (
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">

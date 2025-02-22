@@ -9,50 +9,18 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import { type Message } from "~/types/chat";
 import { useUserColors } from "~/store/userColors";
-import { MONTHS } from "~/constants";
 import { motion } from "framer-motion";
+import { type MonthlyMessageData } from "~/utils/dataProcessing";
 
 interface MessagesChartProps {
-  messages: Message[];
+  monthlyData: MonthlyMessageData[];
+  users: string[];
+  userIdMap: Record<string, string>;
 }
 
-export function MessagesChart({ messages }: MessagesChartProps) {
+export function MessagesChart({ monthlyData, users, userIdMap }: MessagesChartProps) {
   const { getUserColor } = useUserColors();
-  
-  // Get unique users and their IDs
-  const users = Array.from(
-    new Set(
-      messages
-        .map((msg) => msg.from)
-        .filter((from): from is string => typeof from === 'string')
-    )
-  );
-  const userIdMap: Record<string, string> = Object.fromEntries(
-    messages
-      .filter((msg): msg is Message & { from: string; from_id: string } => 
-        typeof msg.from === 'string' && typeof msg.from_id === 'string'
-      )
-      .map((msg) => [msg.from, msg.from_id])
-  );
-
-  // Initialize data structure for each month
-  const monthlyData = MONTHS.map((month) => ({
-    month,
-    ...Object.fromEntries(users.map((user) => [user, 0])),
-  }));
-
-  // Count messages by month and user
-  messages.forEach((msg) => {
-    const date = new Date(msg.date);
-    const monthIndex = date.getMonth();
-    const monthData = monthlyData[monthIndex];
-    if (monthData && msg.from) {
-      // @ts-expect-error - msg.from is a string
-      monthData[msg.from]++;
-    }
-  });
 
   return (
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">

@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import { type Message } from '~/types/chat'
 import {
   BarChart,
   Bar,
@@ -12,18 +11,12 @@ import {
 } from 'recharts'
 import { useUserColors } from '~/store/userColors'
 import { motion } from 'framer-motion'
+import { type VoiceMessagesData } from '~/utils/dataProcessing'
 
-interface VoiceMessagesProps {
-  messages: Message[]
-}
-
-export function VoiceMessages({ messages }: VoiceMessagesProps) {
+export function VoiceMessages({ userStats, longestMessageStats, totalCount }: VoiceMessagesData) {
   const { getUserColor } = useUserColors()
 
-  // Get only voice messages
-  const voiceMessages = messages.filter(msg => msg.media_type === 'voice_message')
-  
-  if (voiceMessages.length === 0) {
+  if (totalCount === 0) {
     return (
       <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
         <CardHeader>
@@ -37,40 +30,6 @@ export function VoiceMessages({ messages }: VoiceMessagesProps) {
       </Card>
     )
   }
-
-  // Get unique users
-  const users = Array.from(new Set(voiceMessages.map(msg => msg.from)))
-  
-  // Calculate statistics for each user
-  interface UserStat {
-    user: string
-    count: number
-    longestMessage: number
-    userId: string
-  }
-
-  const userStats = users.map(user => {
-    const userVoiceMessages = voiceMessages.filter(msg => msg.from === user)
-    const count = userVoiceMessages.length
-    const longestMessage = userVoiceMessages.reduce((max, msg) => 
-      Math.max(max, msg.duration_seconds ?? 0), 0
-    )
-    
-    return {
-      user,
-      count,
-      longestMessage,
-      userId: userVoiceMessages[0]?.from_id ?? '', // Store user ID for color
-    }
-  })
-
-  // Sort by count in descending order
-  userStats.sort((a, b) => b.count - a.count)
-
-  // Find the longest message overall
-  const longestMessageStats = userStats.reduce((max, curr) => 
-    curr.longestMessage > max.longestMessage ? curr : max
-  , userStats[0] ?? { user: '', longestMessage: 0 })
 
   // Format duration as minutes and seconds
   const formatDuration = (seconds: number) => {
@@ -96,7 +55,7 @@ export function VoiceMessages({ messages }: VoiceMessagesProps) {
             >
               <p className="text-sm font-medium mb-1 text-slate-600 dark:text-slate-300">Всего голосовых</p>
               <p className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-                {voiceMessages.length}
+                {totalCount}
               </p>
             </motion.div>
             <motion.div
