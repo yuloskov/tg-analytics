@@ -42,7 +42,6 @@ export function Report({
   onHowToClick,
   onYearChange,
 }: ReportProps) {
-  console.log(processedDataByYear);
   return (
     <>
       <PrivacyNotice />

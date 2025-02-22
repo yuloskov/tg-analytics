@@ -21,6 +21,8 @@ const ReactWordCloud = dynamic(() => import('react-d3-cloud'), {
 
 export function WordCloudChart({ wordData }: WordCloudData) {
   const processedWordData = wordData.map(item => ({ ...item }));
+  const maxValue = Math.max(...processedWordData.map(w => w.value));
+
   return (
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <CardHeader>
@@ -39,10 +41,16 @@ export function WordCloudChart({ wordData }: WordCloudData) {
               data={processedWordData}
               width={500}
               height={310}
-              font="Impact"
-              padding={2}
+              font="Times"
+              padding={0}
+              fontWeight={500}
               rotate={() => Math.random() * 90 - 45}
-              fontSize={(word: { value: number }) => Math.log2(word.value) * 2 + 12}
+              fontSize={(word: { value: number }) => {
+                const minSize = 10;
+                const maxSize = 80;
+                const scale = Math.pow(word.value / maxValue, 2);
+                return minSize + (scale * (maxSize - minSize));
+              }}
             />
           )}
         </motion.div>
