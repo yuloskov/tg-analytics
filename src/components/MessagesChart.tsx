@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 import { Message } from '~/types/chat'
-import { analyzeChat } from '~/utils/chatAnalysis'
+import { analyzeChat } from '~/components/FirstMessages/chatAnalysis'
 
 interface MessagesChartProps {
   messages: Message[]

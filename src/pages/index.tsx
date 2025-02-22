@@ -3,9 +3,8 @@ import { type ChatData } from '~/types/chat'
 import { FileUpload } from '~/components/FileUpload'
 import { ChatOverview } from '~/components/ChatOverview'
 import { MessagesChart } from '~/components/MessagesChart'
-import { FirstMessages } from '~/components/FirstMessages'
-import { Card, CardContent } from '~/components/ui/card'
 import { PrivacyNotice } from '~/components/PrivacyNotice'
+import { FirstMessages } from '~/components/FirstMessages/FirstMessages'
 
 export default function Home() {
   const [chatData, setChatData] = useState<ChatData | null>(null)

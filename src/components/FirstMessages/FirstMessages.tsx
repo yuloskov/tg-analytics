@@ -1,6 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { type Message } from '~/types/chat'
-import { analyzeChat, type ConversationInitiation } from '~/utils/chatAnalysis'
 import {
   BarChart,
   Bar,
@@ -10,6 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts'
+import { analyzeChat } from './chatAnalysis'
 
 interface FirstMessagesProps {
   messages: Message[]
