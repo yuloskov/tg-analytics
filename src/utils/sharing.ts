@@ -9,18 +9,39 @@ export function encodeDataForSharing(
   data: ProcessedDataByYear,
   userColors: Record<string, string>
 ): string {
-  // Convert the data to a compressed string
-  const jsonString = JSON.stringify({ processedData: data, userColors });
-  const compressedData = btoa(encodeURIComponent(jsonString));
-  return compressedData;
+  try {
+    // Convert the data to a compressed string
+    const jsonString = JSON.stringify({ processedData: data, userColors });
+    // First encode to base64
+    const base64 = btoa(unescape(encodeURIComponent(jsonString)));
+    // Make base64 URL safe
+    return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  } catch (error) {
+    console.error("Failed to encode data for sharing:", error);
+    return '';
+  }
 }
 
 export function decodeSharedData(encodedData: string): SharedData | null {
   try {
-    // Decode the compressed string back to data
-    const jsonString = decodeURIComponent(atob(encodedData));
-    const data = JSON.parse(jsonString) as SharedData;
-    return data;
+    // Restore base64 characters
+    let base64 = encodedData.replace(/-/g, '+').replace(/_/g, '/');
+    
+    // Add padding if needed
+    while (base64.length % 4) {
+      base64 += '=';
+    }
+    
+    try {
+      const jsonString = decodeURIComponent(escape(atob(base64)));
+      const data = JSON.parse(jsonString) as SharedData;
+      return data;
+    } catch (error) {
+      // If the modern approach fails, try the legacy approach
+      const jsonString = decodeURIComponent(atob(base64));
+      const data = JSON.parse(jsonString) as SharedData;
+      return data;
+    }
   } catch (error) {
     console.error("Failed to decode shared data:", error);
     return null;
