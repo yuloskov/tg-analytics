@@ -49,7 +49,7 @@ export function PopularReactions({ topReactions, userFavorites }: PopularReactio
                   key={emoji}
                   className="flex items-center gap-3 text-lg bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow"
                 >
-                  <span className="w-8 h-8 flex items-center justify-center bg-purple-100 dark:bg-purple-900 rounded-full font-semibold text-purple-600 dark:text-purple-300">
+                  <span className="w-8 h-8 min-w-[2rem] min-h-[2rem] flex items-center justify-center bg-purple-100 dark:bg-purple-900 rounded-full font-semibold text-purple-600 dark:text-purple-300">
                     {index + 1}
                   </span>
                   <span className="text-2xl">{emoji}</span>
@@ -80,7 +80,7 @@ export function PopularReactions({ topReactions, userFavorites }: PopularReactio
                   key={user}
                   className="flex items-center gap-3 text-lg bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow"
                 >
-                  <span className="w-8 h-8 flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-full font-semibold text-blue-600 dark:text-blue-300">
+                  <span className="w-8 h-8 min-w-[2rem] min-h-[2rem] flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-full font-semibold text-blue-600 dark:text-blue-300">
                     {index + 1}
                   </span>
                   <span className="font-medium truncate max-w-[150px]">{user}</span>
