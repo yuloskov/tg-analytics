@@ -10,7 +10,7 @@ interface LayoutProps {
 
 export function Layout({ children, activeTab, onTabChange }: LayoutProps) {
   return (
-    <div className="container mx-auto p-4">
+    <div className="lg:container lg:mx-auto p-4">
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-HJZDZTJBCK"
         strategy="afterInteractive"
