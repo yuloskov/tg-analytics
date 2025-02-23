@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import { motion } from 'framer-motion'
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import { motion } from "framer-motion";
 
 export function HowToTab() {
   return (
@@ -39,6 +39,11 @@ export function HowToTab() {
                 Нажмите на три точки справа от имени пользователя и выберите
                 &quot;Экспорт истории чата&quot;
               </li>
+              <li>
+                Если у вас нет этой опции, значит ваша версия Telegram скачана
+                не с официального сайта, а, например, из магазина приложений.
+                Скачайте официальную версию с официального сайта.
+              </li>
             </ul>
           </div>
 
@@ -65,4 +70,4 @@ export function HowToTab() {
       </Card>
     </motion.div>
   );
-} 
+}
