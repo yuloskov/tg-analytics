@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Github, MessageCircle } from "lucide-react";
+import Link from "next/link";
 
 interface Tab {
   id: string;
@@ -26,14 +27,16 @@ export function Header({ onTabChange, activeTab }: HeaderProps) {
 
       <div className="flex items-start justify-between p-4">
         <div>
-          <h1 className="bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-4xl font-bold text-transparent">
-            TG Chat Analyzer
-          </h1>
-          <div className="mt-2 inline-block">
-            <span className="text-sm text-slate-700 dark:text-slate-200">
-              Анализируйте свои чаты в Telegram
-            </span>
-          </div>
+          <Link href="/" className="block">
+            <h1 className="bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-4xl font-bold text-transparent">
+              TG Chat Analyzer
+            </h1>
+            <div className="mt-2 inline-block">
+              <span className="text-sm text-slate-700 dark:text-slate-200">
+                Анализируйте свои чаты в Telegram
+              </span>
+            </div>
+          </Link>
         </div>
 
         <div className="flex items-center gap-2">
@@ -66,9 +69,13 @@ export function Header({ onTabChange, activeTab }: HeaderProps) {
       <div className="px-4 pb-4">
         <div className="flex flex-col space-x-1 md:flex-row">
           {tabs.map((tab) => (
-            <button
+            <Link
               key={tab.id}
-              onClick={() => onTabChange(tab.id)}
+              href={{ query: { tab: tab.id } }}
+              onClick={(e) => {
+                e.preventDefault();
+                onTabChange(tab.id);
+              }}
               className={`relative rounded-lg px-3 py-1.5 text-sm font-medium outline-2 outline-sky-400 transition ${
                 activeTab === tab.id
                   ? "text-slate-900 dark:text-white"
@@ -83,7 +90,7 @@ export function Header({ onTabChange, activeTab }: HeaderProps) {
                 />
               )}
               <span className="relative z-10">{tab.label}</span>
-            </button>
+            </Link>
           ))}
         </div>
       </div>

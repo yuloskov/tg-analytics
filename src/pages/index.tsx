@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { type ChatData } from "~/types/chat";
 import { FileUpload } from "~/components/FileUpload";
 import { HowToTab } from "~/components/HowToTab";
@@ -20,9 +21,9 @@ import { exampleData } from "~/utils/exampleData";
 import { PrivacyNotice } from "~/components/Report/Blocks/PrivacyNotice";
 
 export default function Home() {
+  const router = useRouter();
   const [chatData, setChatData] = useState<ChatData | null>(null);
   const [selectedYear, setSelectedYear] = useState<string>("all");
-  const [activeTab, setActiveTab] = useState("main");
   const [isLoading, setIsLoading] = useState(false);
   const [isSharedData, setIsSharedData] = useState(false);
   const [processedDataByYear, setProcessedDataByYear] =
@@ -61,15 +62,24 @@ export default function Home() {
   // Get the current year's data
   const processedData = processedDataByYear?.[selectedYear] ?? defaultData;
 
+  // Get current active tab, defaulting to "main"
+  const activeTab = (router.query.tab as string) ?? "main";
+
+  // Handle tab changes
+  const handleTabChange = (tab: string) => {
+    if (tab === "upload") {
+      clearSharedDataFromUrl();
+    }
+    void router.push({
+      pathname: router.pathname,
+      query: { ...router.query, tab },
+    }, undefined, { shallow: true });
+  };
+
   return (
     <Layout
       activeTab={activeTab}
-      onTabChange={(tab) => {
-        if (tab === "upload") {
-          clearSharedDataFromUrl();
-        }
-        setActiveTab(tab);
-      }}
+      onTabChange={handleTabChange}
     >
       {activeTab === "example" && (
         <Report
@@ -83,9 +93,9 @@ export default function Home() {
           }
           onUploadClick={() => {
             clearSharedDataFromUrl();
-            setActiveTab("upload");
+            handleTabChange("upload");
           }}
-          onHowToClick={() => setActiveTab("how-to")}
+          onHowToClick={() => handleTabChange("how-to")}
           onYearChange={setSelectedYear}
         />
       )}
@@ -100,9 +110,9 @@ export default function Home() {
             onChatDataLoad={(data) => {
               clearSharedDataFromUrl();
               setChatData(data);
-              setActiveTab("main");
+              handleTabChange("main");
             }}
-            onHowToClick={() => setActiveTab("how-to")}
+            onHowToClick={() => handleTabChange("how-to")}
           />
         </div>
       )}
@@ -116,9 +126,9 @@ export default function Home() {
           processedData={processedData}
           onUploadClick={() => {
             clearSharedDataFromUrl();
-            setActiveTab("upload");
+            handleTabChange("upload");
           }}
-          onHowToClick={() => setActiveTab("how-to")}
+          onHowToClick={() => handleTabChange("how-to")}
           onYearChange={setSelectedYear}
         />
       )}
