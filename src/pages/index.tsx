@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { type ChatData } from "~/types/chat";
 import { FileUpload } from "~/components/FileUpload";
 import { HowToTab } from "~/components/HowToTab";
-import { Report } from "~/components/Report";
-import { Layout } from "~/components/Layout";
+import { Report } from "~/components/Report/Report";
+import { Layout } from "~/components/Layout/Layout";
 import {
   getSharedDataFromUrl,
   decodeSharedData,
@@ -17,7 +17,7 @@ import {
 } from "~/utils/dataProcessing";
 import { useUserColors } from "~/store/userColors";
 import { exampleData } from "~/utils/exampleData";
-import { PrivacyNotice } from "~/components/PrivacyNotice";
+import { PrivacyNotice } from "~/components/Report/Blocks/PrivacyNotice";
 
 export default function Home() {
   const [chatData, setChatData] = useState<ChatData | null>(null);

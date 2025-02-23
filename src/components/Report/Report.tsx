@@ -1,19 +1,19 @@
 import { type ProcessedDataByYear, type ProcessedChatData } from "~/utils/dataProcessing";
-import { PrivacyNotice } from "./PrivacyNotice";
-import { UploadPrompt } from "./UploadPrompt";
-import { Loader } from "./Loader";
-import { Settings } from "./Settings";
-import { ShareButton } from "./ShareButton";
-import { YearSelector } from "./YearSelector";
-import { MessagesChart } from "./MessagesChart";
-import { TimeOfDayChart } from "./TimeOfDayChart";
-import { FirstMessages } from "./FirstMessages/FirstMessages";
-import { PopularReactions } from "./PopularReactions";
-import { VoiceMessages } from "./VoiceMessages";
-import { VideoMessages } from "./VideoMessages";
-import { WordCloudChart } from "./WordCloud";
-import { ForwardedMessages } from "./ForwardedMessages";
+import { UploadPrompt } from "./Blocks/UploadPrompt";
+import { Settings } from "./Control/Settings";
+import { ShareButton } from "./Control/ShareButton";
+import { YearSelector } from "./Control/YearSelector";
+import { MessagesChart } from "./Blocks/MessagesChart";
+import { TimeOfDayChart } from "./Blocks/TimeOfDayChart";
+import { FirstMessages } from "./Blocks/FirstMessages/FirstMessages";
+import { PopularReactions } from "./Blocks/PopularReactions";
+import { VoiceMessages } from "./Blocks/VoiceMessages";
+import { VideoMessages } from "./Blocks/VideoMessages";
+import { WordCloudChart } from "./Blocks/WordCloud";
+import { ForwardedMessages } from "./Blocks/ForwardedMessages";
 import Masonry from "react-masonry-css";
+import { PrivacyNotice } from "./Blocks/PrivacyNotice"
+import { Loader } from "../ui/Loader"
 
 interface ReportProps {
   processedDataByYear: ProcessedDataByYear | null;

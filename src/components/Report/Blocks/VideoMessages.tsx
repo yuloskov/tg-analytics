@@ -12,8 +12,8 @@ import {
 import { useUserColors } from '~/store/userColors'
 import { motion } from 'framer-motion'
 import { type VideoMessagesData } from '~/utils/dataProcessing'
-import { EmptyState } from './EmptyState'
 import { VideoOff } from 'lucide-react'
+import { EmptyState } from '~/components/ui/EmptyState'
 
 // Function to truncate text if it's too long
 const truncateText = (text: string, maxLength = 12) => {

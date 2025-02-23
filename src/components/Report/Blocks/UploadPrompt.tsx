@@ -1,4 +1,4 @@
-import { HelpButton } from "./HelpButton";
+import { HelpButton } from "../../HelpButton";
 
 interface UploadPromptProps {
   onUploadClick: () => void;

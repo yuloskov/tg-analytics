@@ -11,8 +11,8 @@ import {
 import { useUserColors } from '~/store/userColors'
 import { motion } from 'framer-motion'
 import { type ForwardedMessagesData } from '~/utils/dataProcessing'
-import { EmptyState } from './EmptyState'
 import { Forward } from 'lucide-react'
+import { EmptyState } from '~/components/ui/EmptyState'
 
 export function ForwardedMessages({ userStats, totalCount }: ForwardedMessagesData) {
   const { getUserColor } = useUserColors()

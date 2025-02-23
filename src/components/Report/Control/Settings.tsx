@@ -1,4 +1,3 @@
-import { UserColors } from './UserColors'
 import { type SettingsData } from '~/utils/dataProcessing'
 import { Settings as SettingsIcon } from 'lucide-react'
 import { GeistSans } from 'geist/font/sans'
@@ -10,6 +9,7 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog'
 import { useState } from 'react'
+import { UserColors } from './UserColors'
 
 interface SettingsProps extends SettingsData {
   selectedYear: string;

@@ -1,8 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { motion } from 'framer-motion'
 import { type TopReaction, type UserFavorite } from '~/utils/dataProcessing'
-import { EmptyState } from './EmptyState'
 import { SmilePlus } from 'lucide-react'
+import { EmptyState } from '~/components/ui/EmptyState'
 
 interface PopularReactionsProps {
   topReactions: TopReaction[];
