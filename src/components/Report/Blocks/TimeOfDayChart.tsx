@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { useUserColors } from '~/store/userColors'
 import { motion } from 'framer-motion'
 import { type HourCount } from '~/utils/dataProcessing'
+import { useResponsiveAxisInterval } from '~/hooks/useResponsiveAxisInterval'
 
 interface TimeOfDayChartProps {
   hourCounts: HourCount[];
@@ -21,6 +22,7 @@ interface TimeOfDayChartProps {
 
 export function TimeOfDayChart({ hourCounts, users, userIdMap }: TimeOfDayChartProps) {
   const { getUserColor } = useUserColors()
+  const xAxisInterval = useResponsiveAxisInterval()
 
   return (
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
@@ -50,7 +52,7 @@ export function TimeOfDayChart({ hourCounts, users, userIdMap }: TimeOfDayChartP
                 <XAxis 
                   dataKey="label"
                   stroke="#64748b"
-                  interval={0}
+                  interval={xAxisInterval}
                   angle={-45}
                   textAnchor="end"
                   height={60}

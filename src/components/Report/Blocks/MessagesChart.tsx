@@ -12,6 +12,7 @@ import {
 import { useUserColors } from "~/store/userColors";
 import { motion } from "framer-motion";
 import { type MonthlyMessageData } from "~/utils/dataProcessing";
+import { useResponsiveAxisInterval } from "~/hooks/useResponsiveAxisInterval";
 
 interface MessagesChartProps {
   monthlyData: MonthlyMessageData[];
@@ -21,6 +22,7 @@ interface MessagesChartProps {
 
 export function MessagesChart({ monthlyData, users, userIdMap }: MessagesChartProps) {
   const { getUserColor } = useUserColors();
+  const xAxisInterval = useResponsiveAxisInterval();
 
   return (
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
@@ -53,7 +55,7 @@ export function MessagesChart({ monthlyData, users, userIdMap }: MessagesChartPr
                 <XAxis 
                   dataKey="month" 
                   stroke="#64748b" 
-                  interval={0}
+                  interval={xAxisInterval}
                   angle={-45}
                   textAnchor="end"
                   height={60}

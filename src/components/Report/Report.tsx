@@ -29,7 +29,7 @@ interface ReportProps {
 
 const breakpointColumns = {
   default: 2,
-  1024: 2,
+  1024: 1,
   768: 1,
 };
 

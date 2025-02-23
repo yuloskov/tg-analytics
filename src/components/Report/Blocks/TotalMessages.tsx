@@ -12,6 +12,7 @@ import {
 import { useUserColors } from '~/store/userColors'
 import { motion } from 'framer-motion'
 import { type MonthlyMessageData } from '~/utils/dataProcessing'
+import { useResponsiveAxisInterval } from '~/hooks/useResponsiveAxisInterval'
 
 interface TotalMessagesProps {
   monthlyData: MonthlyMessageData[];
@@ -27,6 +28,7 @@ const truncateText = (text: string, maxLength = 12) => {
 
 export function TotalMessages({ monthlyData, users, userIdMap }: TotalMessagesProps) {
   const { getUserColor } = useUserColors()
+  const xAxisInterval = useResponsiveAxisInterval()
 
   // Calculate total messages per user
   const totalMessagesPerUser = users.map(user => {
@@ -71,7 +73,7 @@ export function TotalMessages({ monthlyData, users, userIdMap }: TotalMessagesPr
                 <XAxis 
                   dataKey="user" 
                   stroke="#64748b"
-                  interval={0}
+                  interval={xAxisInterval}
                   angle={-45}
                   textAnchor="end"
                   height={100}
