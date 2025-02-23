@@ -26,6 +26,12 @@ export function MessagesChart({ monthlyData, users, userIdMap }: MessagesChartPr
   const xAxisInterval = useResponsiveAxisInterval();
   const { t } = useTranslation();
 
+  // Translate month names
+  const translatedData = monthlyData.map(data => ({
+    ...data,
+    month: t(data.month)
+  }));
+
   return (
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <CardHeader>
@@ -50,7 +56,7 @@ export function MessagesChart({ monthlyData, users, userIdMap }: MessagesChartPr
           >
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
-                data={monthlyData}
+                data={translatedData}
                 margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />

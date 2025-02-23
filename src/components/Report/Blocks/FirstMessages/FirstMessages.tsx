@@ -30,6 +30,12 @@ export function FirstMessages({
   const xAxisInterval = useResponsiveAxisInterval();
   const { t } = useTranslation();
 
+  // Translate month names
+  const translatedData = monthlyInitiations.map(data => ({
+    ...data,
+    month: t(data.month)
+  }));
+
   return (
     <div className="space-y-4">
       <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
@@ -55,7 +61,7 @@ export function FirstMessages({
             >
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
-                  data={monthlyInitiations}
+                  data={translatedData}
                   margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
