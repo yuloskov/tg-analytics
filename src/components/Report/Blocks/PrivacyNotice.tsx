@@ -1,7 +1,10 @@
 import { Card, CardContent } from '~/components/ui/card'
 import { motion } from 'framer-motion'
+import { useTranslation } from 'next-i18next'
 
 export function PrivacyNotice() {
+  const { t } = useTranslation();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -33,7 +36,7 @@ export function PrivacyNotice() {
               </motion.div>
             </div>
             <p className="text-blue-700 dark:text-blue-300 font-medium">
-              Вся обработка происходит в вашем браузере - данные никогда не отправляются на сервер.
+              {t('privacyNotice.description')}
             </p>
           </div>
         </CardContent>

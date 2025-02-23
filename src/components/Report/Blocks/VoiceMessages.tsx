@@ -14,6 +14,7 @@ import { motion } from 'framer-motion'
 import { type VoiceMessagesData } from '~/utils/dataProcessing'
 import { MicOff } from 'lucide-react'
 import { EmptyState } from '~/components/ui/EmptyState'
+import { useTranslation } from 'next-i18next'
 
 // Function to truncate text if it's too long
 const truncateText = (text: string, maxLength = 12) => {
@@ -23,19 +24,20 @@ const truncateText = (text: string, maxLength = 12) => {
 
 export function VoiceMessages({ userStats, longestMessageStats, totalCount }: VoiceMessagesData) {
   const { getUserColor } = useUserColors()
+  const { t } = useTranslation()
 
   if (totalCount === 0) {
     return (
       <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
         <CardHeader>
           <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-            Голосовые сообщения
+            {t('report.voiceMessages.title')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <EmptyState
-            title="Нет голосовых сообщений"
-            message="В этом чате пока нет голосовых сообщений"
+            title={t('report.voiceMessages.noMessages')}
+            message={t('report.voiceMessages.noMessagesDesc')}
             icon={MicOff}
           />
         </CardContent>
@@ -47,14 +49,14 @@ export function VoiceMessages({ userStats, longestMessageStats, totalCount }: Vo
   const formatDuration = (seconds: number) => {
     const minutes = Math.floor(seconds / 60)
     const remainingSeconds = seconds % 60
-    return `${minutes} мин ${remainingSeconds} сек`
+    return `${minutes} ${t('report.voiceMessages.minutes')} ${remainingSeconds} ${t('report.voiceMessages.seconds')}`
   }
 
   return (
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <CardHeader>
         <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-          Голосовые сообщения
+          {t('report.voiceMessages.title')}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -65,7 +67,7 @@ export function VoiceMessages({ userStats, longestMessageStats, totalCount }: Vo
               animate={{ opacity: 1, y: 0 }}
               className="rounded-lg bg-white dark:bg-slate-800 p-4 shadow-sm hover:shadow-md transition-shadow"
             >
-              <p className="text-sm font-medium mb-1 text-slate-600 dark:text-slate-300">Всего голосовых</p>
+              <p className="text-sm font-medium mb-1 text-slate-600 dark:text-slate-300">{t('report.voiceMessages.totalVoice')}</p>
               <p className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
                 {totalCount}
               </p>
@@ -76,11 +78,11 @@ export function VoiceMessages({ userStats, longestMessageStats, totalCount }: Vo
               transition={{ delay: 0.1 }}
               className="rounded-lg bg-white dark:bg-slate-800 p-4 shadow-sm hover:shadow-md transition-shadow"
             >
-              <p className="text-sm font-medium mb-1 text-slate-600 dark:text-slate-300">Самое длинное</p>
+              <p className="text-sm font-medium mb-1 text-slate-600 dark:text-slate-300">{t('report.voiceMessages.longest')}</p>
               <p className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
                 {formatDuration(longestMessageStats.longestMessage)}
               </p>
-              <p className="text-sm text-slate-500 dark:text-slate-400">от {longestMessageStats.user}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">{t('report.voiceMessages.from')} {longestMessageStats.user}</p>
             </motion.div>
           </div>
 
@@ -107,7 +109,7 @@ export function VoiceMessages({ userStats, longestMessageStats, totalCount }: Vo
                 />
                 <YAxis stroke="#64748b" />
                 <Tooltip 
-                  formatter={(value: number, name: string) => [value, 'Количество сообщений']}
+                  formatter={(value: number) => [value, t('report.totalMessages.messageCount')]}
                   contentStyle={{
                     backgroundColor: 'white',
                     border: '1px solid #e2e8f0',
@@ -116,7 +118,7 @@ export function VoiceMessages({ userStats, longestMessageStats, totalCount }: Vo
                 />
                 <Bar
                   dataKey="count"
-                  name="Количество сообщений"
+                  name={t('report.totalMessages.messageCount')}
                 >
                   {userStats.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={getUserColor(entry.userId)} />

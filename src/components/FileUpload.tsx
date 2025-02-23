@@ -4,6 +4,7 @@ import { type ChatData } from '~/types/chat'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { motion } from 'framer-motion'
 import { HelpButton } from './HelpButton'
+import { useTranslation } from 'next-i18next'
 
 interface FileUploadProps {
   onChatDataLoad: (data: ChatData) => void
@@ -13,6 +14,7 @@ interface FileUploadProps {
 export function FileUpload({ onChatDataLoad, onHowToClick }: FileUploadProps) {
   const [error, setError] = useState<string | null>(null)
   const [isDragging, setIsDragging] = useState(false)
+  const { t } = useTranslation()
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setError(null)
@@ -42,11 +44,10 @@ export function FileUpload({ onChatDataLoad, onHowToClick }: FileUploadProps) {
   })
 
   return (
-    
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <CardHeader>
         <CardTitle className="bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-2xl text-transparent">
-          Загрузка чата
+          {t('upload.title')}
         </CardTitle>
         <HelpButton onClick={onHowToClick} />
       </CardHeader>
@@ -96,10 +97,10 @@ export function FileUpload({ onChatDataLoad, onHowToClick }: FileUploadProps) {
               transition={{ delay: 0.2 }}
             >
               <p className="mb-2 text-lg font-semibold text-slate-700 dark:text-slate-200 text-center">
-                Перетащите экспорт чата Telegram сюда
+                {t('upload.dropzone.title')}
               </p>
               <p className="text-sm text-slate-500 dark:text-slate-400 text-center">
-                или нажмите, чтобы выбрать JSON файл
+                {t('upload.dropzone.description')}
               </p>
             </motion.div>
 
@@ -109,7 +110,7 @@ export function FileUpload({ onChatDataLoad, onHowToClick }: FileUploadProps) {
                 animate={{ opacity: 1 }}
                 className="mt-4 text-sm text-red-500 dark:text-red-400"
               >
-                {error}
+                {t(`upload.errors.${error}`)}
               </motion.p>
             )}
           </div>

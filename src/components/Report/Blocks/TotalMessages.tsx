@@ -13,6 +13,7 @@ import { useUserColors } from '~/store/userColors'
 import { motion } from 'framer-motion'
 import { type MonthlyMessageData } from '~/utils/dataProcessing'
 import { useResponsiveAxisInterval } from '~/hooks/useResponsiveAxisInterval'
+import { useTranslation } from 'next-i18next'
 
 interface TotalMessagesProps {
   monthlyData: MonthlyMessageData[];
@@ -29,6 +30,7 @@ const truncateText = (text: string, maxLength = 12) => {
 export function TotalMessages({ monthlyData, users, userIdMap }: TotalMessagesProps) {
   const { getUserColor } = useUserColors()
   const xAxisInterval = useResponsiveAxisInterval()
+  const { t } = useTranslation()
 
   // Calculate total messages per user
   const totalMessagesPerUser = users.map(user => {
@@ -46,7 +48,7 @@ export function TotalMessages({ monthlyData, users, userIdMap }: TotalMessagesPr
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <CardHeader>
         <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-          Общее количество сообщений
+          {t('report.totalMessages.title')}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -56,7 +58,7 @@ export function TotalMessages({ monthlyData, users, userIdMap }: TotalMessagesPr
             animate={{ opacity: 1, y: 0 }}
             className="text-sm text-slate-600 dark:text-slate-300"
           >
-            Сколько сообщений отправил каждый участник
+            {t('report.totalMessages.description')}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -81,7 +83,7 @@ export function TotalMessages({ monthlyData, users, userIdMap }: TotalMessagesPr
                 />
                 <YAxis stroke="#64748b" />
                 <Tooltip 
-                  formatter={(value: number) => [value, 'Количество сообщений']}
+                  formatter={(value: number) => [value, t('report.totalMessages.messageCount')]}
                   contentStyle={{
                     backgroundColor: 'white',
                     border: '1px solid #e2e8f0',
@@ -90,7 +92,7 @@ export function TotalMessages({ monthlyData, users, userIdMap }: TotalMessagesPr
                 />
                 <Bar
                   dataKey="total"
-                  name="Количество сообщений"
+                  name={t('report.totalMessages.messageCount')}
                 >
                   {totalMessagesPerUser.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={getUserColor(entry.userId)} />

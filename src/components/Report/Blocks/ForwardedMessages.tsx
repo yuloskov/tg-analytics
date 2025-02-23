@@ -13,22 +13,24 @@ import { motion } from 'framer-motion'
 import { type ForwardedMessagesData } from '~/utils/dataProcessing'
 import { Forward } from 'lucide-react'
 import { EmptyState } from '~/components/ui/EmptyState'
+import { useTranslation } from 'next-i18next'
 
 export function ForwardedMessages({ userStats, totalCount }: ForwardedMessagesData) {
   const { getUserColor } = useUserColors()
+  const { t } = useTranslation()
 
   if (totalCount === 0) {
     return (
       <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
         <CardHeader>
           <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-            Пересланные сообщения
+            {t('report.forwardedMessages.title')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <EmptyState
-            title="Нет пересланных сообщений"
-            message="В этом чате пока нет пересланных сообщений из других чатов"
+            title={t('report.forwardedMessages.noMessages')}
+            message={t('report.forwardedMessages.noMessagesDesc')}
             icon={Forward}
           />
         </CardContent>
@@ -40,7 +42,7 @@ export function ForwardedMessages({ userStats, totalCount }: ForwardedMessagesDa
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <CardHeader>
         <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-          Пересланные сообщения
+          {t('report.forwardedMessages.title')}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -73,7 +75,7 @@ export function ForwardedMessages({ userStats, totalCount }: ForwardedMessagesDa
                       stroke="#64748b"
                     />
                     <Tooltip 
-                      formatter={(value: number) => [`${value}`, 'Количество сообщений']}
+                      formatter={(value: number) => [`${value}`, t('report.totalMessages.messageCount')]}
                       contentStyle={{
                         backgroundColor: 'white',
                         border: '1px solid #e2e8f0',

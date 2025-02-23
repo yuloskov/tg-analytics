@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { type TopReaction, type UserFavorite } from '~/utils/dataProcessing'
 import { SmilePlus } from 'lucide-react'
 import { EmptyState } from '~/components/ui/EmptyState'
+import { useTranslation } from 'next-i18next'
 
 interface PopularReactionsProps {
   topReactions: TopReaction[];
@@ -10,18 +11,20 @@ interface PopularReactionsProps {
 }
 
 export function PopularReactions({ topReactions, userFavorites }: PopularReactionsProps) {
+  const { t } = useTranslation()
+
   if (topReactions.length === 0 && userFavorites.length === 0) {
     return (
       <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
         <CardHeader>
           <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-            Статистика реакций
+            {t('report.reactions.title')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <EmptyState
-            title="Нет реакций"
-            message="В этом чате пока никто не использовал реакции"
+            title={t('report.reactions.noReactions')}
+            message={t('report.reactions.noReactionsDesc')}
             icon={SmilePlus}
           />
         </CardContent>
@@ -33,13 +36,13 @@ export function PopularReactions({ topReactions, userFavorites }: PopularReactio
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <CardHeader>
         <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-          Статистика реакций
+          {t('report.reactions.title')}
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-8">
           <div>
-            <h3 className="font-semibold mb-4 text-xl">Самые популярные реакции</h3>
+            <h3 className="font-semibold mb-4 text-xl">{t('report.reactions.mostPopular')}</h3>
             <div className="space-y-3">
               {topReactions.map(({ emoji, stats }, index) => (
                 <motion.div
@@ -70,7 +73,7 @@ export function PopularReactions({ topReactions, userFavorites }: PopularReactio
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4 text-xl">Любимые реакции участников</h3>
+            <h3 className="font-semibold mb-4 text-xl">{t('report.reactions.userFavorites')}</h3>
             <div className="space-y-3">
               {userFavorites.map(({ user, emoji, count }, index) => (
                 <motion.div

@@ -13,17 +13,143 @@
     "title": "Upload your chat",
     "description": "Upload your Telegram chat export file to generate analytics",
     "button": "Upload file",
-    "howTo": "How to export chat?"
+    "howTo": "How to export chat?",
+    "dropzone": {
+      "title": "Drop your Telegram chat export here",
+      "description": "or click to select JSON file"
+    },
+    "errors": {
+      "invalidFile": "Invalid file format. Please upload a JSON file",
+      "readError": "Error reading file. Please try again",
+      "parseError": "Error parsing JSON. Please make sure the file is valid",
+      "noMessages": "No messages found in the file"
+    }
   },
   "report": {
     "loading": "Loading...",
     "noData": "No data available",
     "uploadNew": "Upload new chat",
     "year": "Year",
-    "allTime": "All time"
+    "allTime": "All time",
+    "yearSelector": {
+      "placeholder": "Select year"
+    },
+    "wordCloud": {
+      "loading": "Loading word cloud...",
+      "title": "Popular Words"
+    },
+    "voiceMessages": {
+      "title": "Voice Messages",
+      "noMessages": "No voice messages",
+      "noMessagesDesc": "There are no voice messages in this chat yet",
+      "totalVoice": "Total voice messages",
+      "longest": "Longest message",
+      "from": "from",
+      "minutes": "min",
+      "seconds": "sec"
+    },
+    "videoMessages": {
+      "title": "Video Messages",
+      "noMessages": "No video messages",
+      "noMessagesDesc": "There are no video messages in this chat yet",
+      "totalVideo": "Total video messages",
+      "longestMessage": "Longest message",
+      "from": "from"
+    },
+    "firstMessages": {
+      "title": "Who started conversations more often?",
+      "description": "Number of times a user started a conversation after 12+ hours of silence"
+    },
+    "totalMessages": {
+      "title": "Total Messages",
+      "description": "Number of messages sent by each participant",
+      "messageCount": "Message count"
+    },
+    "messagesChart": {
+      "title": "Chat Activity",
+      "description": "Number of messages by month"
+    },
+    "timeOfDay": {
+      "title": "Who writes at what time?",
+      "description": "Distribution of messages by time of day"
+    },
+    "reactions": {
+      "title": "Reactions Statistics",
+      "noReactions": "No reactions",
+      "noReactionsDesc": "No one has used reactions in this chat yet",
+      "mostPopular": "Most Popular Reactions",
+      "userFavorites": "User Favorite Reactions"
+    },
+    "forwardedMessages": {
+      "title": "Forwarded Messages",
+      "noMessages": "No forwarded messages",
+      "noMessagesDesc": "There are no forwarded messages from other chats yet"
+    }
+  },
+  "share": {
+    "saving": "Saving...",
+    "copied": "Copied!",
+    "share": "Share",
+    "cancel": "Cancel",
+    "understand": "Got it, copy link",
+    "securityInfo": "Data Security",
+    "securityInfoDescription1": "Your data is securely protected with end-to-end encryption. Only those with the link can decrypt and view the report.",
+    "securityInfoDescription2": "Only encrypted aggregated data (charts and statistics) is stored in the database. Original messages are never stored or transmitted."
+  },
+  "privacyNotice": {
+    "description": "All processing happens in your browser - data is never sent to the server."
+  },
+  "meta": {
+    "title": "Telegram Chat Analyzer - Detailed Message Analytics",
+    "description": "Detailed analytics of messages and user activity from your chat history",
+    "keywords": "Telegram, analytics, statistics, chats, message analysis, data visualization, user activity"
   },
   "language": {
     "en": "English",
     "ru": "Russian"
+  },
+  "months": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  },
+  "howTo": {
+    "title": "How to download chat history from Telegram",
+    "step1": {
+      "title": "1. Open Telegram Desktop",
+      "description": "Data export is only available in the desktop version of Telegram, you can download it",
+      "link": "here"
+    },
+    "step2": {
+      "title": "2. Open export settings",
+      "item1": "Open the dialog with the user you're interested in",
+      "item2": "Click on the three dots to the right of the user's name and select \"Export chat history\"",
+      "item3": "If you don't have this option, it means your Telegram version was not downloaded from the official website, but from an app store. Download the official version from the official website."
+    },
+    "step3": {
+      "title": "3. Configure export",
+      "item1": "Select \"JSON\" as the export format",
+      "item2": "Uncheck all options in the settings"
+    },
+    "step4": {
+      "title": "4. Upload the file",
+      "description": "After exporting, upload the resulting JSON file to this website for the report"
+    }
+  },
+  "common": {
+    "close": "Close"
+  },
+  "settings": {
+    "title": "Settings",
+    "userColors": "User Colors"
   }
 }

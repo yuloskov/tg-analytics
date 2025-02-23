@@ -13,6 +13,7 @@ import { useUserColors } from "~/store/userColors";
 import { motion } from "framer-motion";
 import { type MonthlyMessageData } from "~/utils/dataProcessing";
 import { useResponsiveAxisInterval } from "~/hooks/useResponsiveAxisInterval";
+import { useTranslation } from "next-i18next";
 
 interface MessagesChartProps {
   monthlyData: MonthlyMessageData[];
@@ -23,12 +24,13 @@ interface MessagesChartProps {
 export function MessagesChart({ monthlyData, users, userIdMap }: MessagesChartProps) {
   const { getUserColor } = useUserColors();
   const xAxisInterval = useResponsiveAxisInterval();
+  const { t } = useTranslation();
 
   return (
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <CardHeader>
         <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-          Активность в чате
+          {t('report.messagesChart.title')}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -38,7 +40,7 @@ export function MessagesChart({ monthlyData, users, userIdMap }: MessagesChartPr
             animate={{ opacity: 1, y: 0 }}
             className="text-sm text-slate-600 dark:text-slate-300"
           >
-            Количество сообщений по месяцам
+            {t('report.messagesChart.description')}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}

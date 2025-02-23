@@ -1,21 +1,24 @@
 import { Html, Head, Main, NextScript } from 'next/document'
+import { useTranslation } from 'next-i18next'
 
 export default function Document() {
+  const { t } = useTranslation();
+
   return (
     <Html lang="ru">
       <Head>
-        <meta name="description" content="Подробная аналитика сообщений и активности пользователей по вашей переписке" />
-        <meta name="keywords" content="Telegram, аналитика, статистика, чаты, анализ сообщений, визуализация данных, активность пользователей" />
+        <meta name="description" content={t('meta.description')} />
+        <meta name="keywords" content={t('meta.keywords')} />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Telegram Chat Analyzer - Подробная аналитика сообщений" />
-        <meta property="og:description" content="Подробная аналитика сообщений и активности пользователей по вашей переписке" />
+        <meta property="og:title" content={t('meta.title')} />
+        <meta property="og:description" content={t('meta.description')} />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Telegram Chat Analyzer - Подробная аналитика сообщений" />
-        <meta name="twitter:description" content="Подробная аналитика сообщений и активности пользователей по вашей переписке" />
+        <meta name="twitter:title" content={t('meta.title')} />
+        <meta name="twitter:description" content={t('meta.description')} />
         
         <link
           rel="apple-touch-icon"

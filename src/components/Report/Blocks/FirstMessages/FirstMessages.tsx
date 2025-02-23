@@ -13,6 +13,7 @@ import { useUserColors } from "~/store/userColors";
 import { motion } from "framer-motion";
 import { type MonthlyMessageData } from "~/utils/dataProcessing";
 import { useResponsiveAxisInterval } from "~/hooks/useResponsiveAxisInterval";
+import { useTranslation } from "next-i18next";
 
 interface FirstMessagesProps {
   monthlyInitiations: MonthlyMessageData[];
@@ -27,13 +28,14 @@ export function FirstMessages({
 }: FirstMessagesProps) {
   const { getUserColor } = useUserColors();
   const xAxisInterval = useResponsiveAxisInterval();
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-4">
       <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
         <CardHeader>
           <CardTitle className="bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-2xl text-transparent">
-            Кто чаще начинал диалог?
+            {t('report.firstMessages.title')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -43,8 +45,7 @@ export function FirstMessages({
               animate={{ opacity: 1, y: 0 }}
               className="text-sm text-slate-600 dark:text-slate-300"
             >
-              Количество раз, когда пользователь начинал диалог после 12+ часов
-              тишины
+              {t('report.firstMessages.description')}
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

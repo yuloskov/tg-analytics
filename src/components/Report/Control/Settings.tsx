@@ -10,6 +10,7 @@ import {
 } from '~/components/ui/dialog'
 import { useState } from 'react'
 import { UserColors } from './UserColors'
+import { useTranslation } from 'next-i18next'
 
 interface SettingsProps extends SettingsData {
   selectedYear: string;
@@ -17,10 +18,11 @@ interface SettingsProps extends SettingsData {
 }
 
 function SettingsContent({ users, userIdMap }: SettingsProps) {
+  const { t } = useTranslation()
   return (
     <div className="space-y-6">
       <div className="rounded-lg bg-white/50 dark:bg-slate-800/50 p-4 shadow-sm">
-        <h3 className="text-base font-semibold mb-4 text-slate-600 dark:text-slate-300">Цвета пользователей</h3>
+        <h3 className="text-base font-semibold mb-4 text-slate-600 dark:text-slate-300">{t('settings.userColors')}</h3>
         <UserColors users={users} userIdMap={userIdMap} />
       </div>
     </div>
@@ -29,6 +31,7 @@ function SettingsContent({ users, userIdMap }: SettingsProps) {
 
 export function Settings(props: SettingsProps) {
   const [open, setOpen] = useState(false)
+  const { t } = useTranslation()
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -40,7 +43,7 @@ export function Settings(props: SettingsProps) {
       <DialogContent className={`${GeistSans.className} bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 border-slate-200 dark:border-slate-700`}>
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-            Настройки
+            {t('settings.title')}
           </DialogTitle>
         </DialogHeader>
         <SettingsContent {...props} />

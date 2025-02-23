@@ -1,5 +1,5 @@
+import { getMonths } from "~/constants"
 import { type Message } from "~/types/chat";
-import { MONTHS } from "~/constants";
 
 // Default empty data structures
 export const defaultData: ProcessedChatData = {
@@ -412,7 +412,7 @@ export function processChatData(messages: Message[], allMessages: Message[]): Pr
   const CONVERSATION_GAP = 12 * 60 * 60 * 1000; // 12 hours in milliseconds
 
   // Initialize all data structures
-  const monthlyData = MONTHS.map((month) => ({
+  const monthlyData = getMonths().map((month) => ({
     month,
     ...Object.fromEntries(baseData.users.map((user) => [user, 0])),
   })) as MonthlyMessageData[];
@@ -423,7 +423,7 @@ export function processChatData(messages: Message[], allMessages: Message[]): Pr
     ...Object.fromEntries(baseData.users.map(user => [user, 0]))
   }));
 
-  const monthlyInitiations = MONTHS.map(month => ({
+  const monthlyInitiations = getMonths().map(month => ({
     month,
     ...Object.fromEntries(baseData.users.map(user => [user, 0])),
   })) as MonthlyMessageData[];

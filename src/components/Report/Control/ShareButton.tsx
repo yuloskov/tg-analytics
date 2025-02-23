@@ -3,6 +3,9 @@ import { type ProcessedDataByYear } from "~/utils/dataProcessing";
 import { encodeDataForSharing, generateShareableUrl } from "~/utils/sharing";
 import { useUserColors } from "~/store/userColors";
 import { supabase } from "~/lib/supabase";
+import { Share2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { useTranslation } from "next-i18next";
 
 interface ShareButtonProps {
   data: ProcessedDataByYear;
@@ -19,6 +22,7 @@ export function ShareButton({ data }: ShareButtonProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const userColors = useUserColors((state) => state.userColors);
+  const { t } = useTranslation();
 
   const handleShare = async () => {
     setIsDialogOpen(true);
@@ -66,75 +70,30 @@ export function ShareButton({ data }: ShareButtonProps) {
     }
   };
 
-  const buttonBaseStyle =
-    "inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-white transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5";
-
   return (
-    <>
-      <div className="flex gap-2">
+    <div className="relative">
+      <div className="flex items-center gap-2">
         <button
           onClick={handleShare}
           disabled={isLoading}
-          className={`${buttonBaseStyle} ${
-            isCopied
-              ? "bg-gradient-to-r from-green-500 to-green-600"
-              : isLoading
-                ? "cursor-not-allowed bg-gray-400"
-                : "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
+          className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-200/20 font-medium transition-all duration-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 bg-gradient-to-r from-purple-600/10 to-blue-500/10 hover:from-purple-600/20 hover:to-blue-500/20 ${
+            isLoading ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
-          {isLoading ? (
-            <svg
-              className="h-5 w-5 animate-spin text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
-          ) : (
-            <svg
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d={
-                  isCopied
-                    ? "M5 13l4 4L19 7"
-                    : "M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-                }
-              />
-            </svg>
-          )}
-          {isLoading
-            ? "Сохранение..."
-            : isCopied
-              ? "Скопировано!"
-              : "Поделиться"}
+          <Share2 className="h-4 w-4 text-slate-700 dark:text-slate-200" />
+          <span className="text-sm font-medium text-slate-700 dark:text-slate-200">
+            {isLoading
+              ? t('share.saving')
+              : isCopied
+                ? t('share.copied')
+                : t('share.share')}
+          </span>
         </button>
       </div>
 
       {isDialogOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-md transform rounded-xl bg-white p-6 shadow-xl transition-all">
+          <div className="w-full max-w-md transform rounded-xl bg-white p-6 shadow-xl">
             <div className="mb-6 flex flex-col items-center text-center">
               <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
                 <svg
@@ -153,24 +112,19 @@ export function ShareButton({ data }: ShareButtonProps) {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-gray-900">
-                Информация о безопасности данных
+                {t('share.securityInfo')}
               </h3>
             </div>
-            <p className="mb-8 text-center leading-relaxed text-gray-600">
-              Ваши данные надёжно защищены с помощью сквозного шифрования. 
-              Только получатели ссылки смогут расшифровать и просмотреть отчёт.
-              <br />
-              <br />
-              В базе данных сохраняются только зашифрованные агрегированные данные 
-              (графики и статистика). Оригинальные сообщения никогда не сохраняются 
-              и не передаются.
-            </p>
+            <div className="mb-8 text-center leading-relaxed text-gray-600 space-y-4">
+              <p>{t('share.securityInfoDescription1')}</p>
+              <p>{t('share.securityInfoDescription2')}</p>
+            </div>
             <div className="flex justify-center gap-4">
               <button
                 onClick={() => setIsDialogOpen(false)}
                 className="rounded-lg px-6 py-2.5 font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900"
               >
-                Отмена
+                {t('share.cancel')}
               </button>
               <button
                 onClick={handleConfirm}
@@ -181,12 +135,12 @@ export function ShareButton({ data }: ShareButtonProps) {
                     : "bg-blue-500 text-white hover:bg-blue-600"
                 }`}
               >
-                {isLoading ? "Сохранение..." : "Понятно, скопировать ссылку"}
+                {isLoading ? t('share.saving') : t('share.understand')}
               </button>
             </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

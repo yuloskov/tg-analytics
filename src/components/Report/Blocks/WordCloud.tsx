@@ -2,10 +2,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import { type WordCloudData } from '~/utils/dataProcessing'
+import { useTranslation } from 'next-i18next'
 
-const ReactWordCloud = dynamic(() => import('react-d3-cloud'), {
-  ssr: false,
-  loading: () => (
+function LoadingComponent() {
+  const { t } = useTranslation();
+  return (
     <div className="flex items-center justify-center h-full">
       <motion.div
         initial={{ opacity: 0.5, scale: 0.95 }}
@@ -13,13 +14,19 @@ const ReactWordCloud = dynamic(() => import('react-d3-cloud'), {
         transition={{ repeat: Infinity, duration: 1, repeatType: "reverse" }}
         className="text-slate-600 dark:text-slate-300"
       >
-        Loading word cloud...
+        {t('report.wordCloud.loading')}
       </motion.div>
     </div>
-  )
+  );
+}
+
+const ReactWordCloud = dynamic(() => import('react-d3-cloud'), {
+  ssr: false,
+  loading: () => <LoadingComponent />
 })
 
 export function WordCloudChart({ wordData }: WordCloudData) {
+  const { t } = useTranslation();
   const processedWordData = wordData.map(item => ({ ...item }));
   const maxValue = Math.max(...processedWordData.map(w => w.value));
 
@@ -27,7 +34,7 @@ export function WordCloudChart({ wordData }: WordCloudData) {
     <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <CardHeader>
         <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-          Популярные слова
+          {t('report.wordCloud.title')}
         </CardTitle>
       </CardHeader>
       <CardContent>

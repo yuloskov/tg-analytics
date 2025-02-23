@@ -116,7 +116,7 @@ export default function Home() {
             clearSharedDataFromUrl();
             handleTabChange("upload");
           }}
-          onHowToClick={() => handleTabChange("how-to")}
+          onHowToClick={() => handleTabChange("howTo")}
           onYearChange={setSelectedYear}
         />
       )}
@@ -133,7 +133,7 @@ export default function Home() {
               setChatData(data);
               handleTabChange("main");
             }}
-            onHowToClick={() => handleTabChange("how-to")}
+            onHowToClick={() => handleTabChange("howTo")}
           />
         </div>
       )}
@@ -149,7 +149,7 @@ export default function Home() {
             clearSharedDataFromUrl();
             handleTabChange("upload");
           }}
-          onHowToClick={() => handleTabChange("how-to")}
+          onHowToClick={() => handleTabChange("howTo")}
           onYearChange={setSelectedYear}
         />
       )}
