@@ -18,12 +18,15 @@ import {
 } from "~/utils/dataProcessing";
 import { useUserColors } from "~/store/userColors";
 import { exampleData } from "~/utils/exampleData";
+import { exampleDataEn } from "~/utils/exampleDataEn";
 import { PrivacyNotice } from "~/components/Report/Blocks/PrivacyNotice";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { type GetStaticProps } from "next";
+import { useTranslation } from "next-i18next";
 
 export default function Home() {
   const router = useRouter();
+  const { i18n } = useTranslation();
   const [chatData, setChatData] = useState<ChatData | null>(null);
   const [selectedYear, setSelectedYear] = useState<string>("all");
   const [isLoading, setIsLoading] = useState(false);
@@ -104,12 +107,12 @@ export default function Home() {
     <Layout activeTab={activeTab} onTabChange={handleTabChange}>
       {activeTab === "example" && (
         <Report
-          processedDataByYear={exampleData as ProcessedDataByYear}
+          processedDataByYear={(i18n.language === "en" ? exampleDataEn : exampleData) as ProcessedDataByYear}
           isSharedData={false}
           isLoading={false}
           selectedYear={selectedYear}
           processedData={
-            (exampleData[selectedYear as keyof typeof exampleData] ??
+            ((i18n.language === "en" ? exampleDataEn : exampleData)[selectedYear as keyof typeof exampleData] ??
               defaultData) as ProcessedChatData
           }
           onUploadClick={() => {
