@@ -1,18 +1,13 @@
 import { motion } from "framer-motion";
 import { Github, MessageCircle } from "lucide-react";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
+import { LanguageSwitcher } from "../LanguageSwitcher";
 
 interface Tab {
   id: string;
   label: string;
 }
-
-const tabs: Tab[] = [
-  { id: "main", label: "Отчет" },
-  { id: "upload", label: "Новый отчет" },
-  { id: "example", label: "Пример" },
-  { id: "how-to", label: "Как скачать переписку" },
-];
 
 interface HeaderProps {
   onTabChange: (tabId: string) => void;
@@ -20,6 +15,15 @@ interface HeaderProps {
 }
 
 export function Header({ onTabChange, activeTab }: HeaderProps) {
+  const { t } = useTranslation();
+
+  const tabs: Tab[] = [
+    { id: "main", label: t("header.report") },
+    { id: "upload", label: t("header.newReport") },
+    { id: "example", label: t("header.example") },
+    { id: "howTo", label: t("header.howToDownload") },
+  ];
+
   return (
     <div className="relative mb-8">
       {/* Background gradient */}
@@ -29,17 +33,18 @@ export function Header({ onTabChange, activeTab }: HeaderProps) {
         <div>
           <Link href="/" className="block">
             <h1 className="bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-4xl font-bold text-transparent">
-              Telegram Chat Analyzer
+              {t("header.title")}
             </h1>
             <div className="mt-2 inline-block">
               <span className="text-sm text-slate-700 dark:text-slate-200">
-                Подробная аналитика сообщений и активности пользователей по вашей переписке
+                {t("header.description")}
               </span>
             </div>
           </Link>
         </div>
 
         <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <a
             href="https://t.me/yuloskov"
             target="_blank"
@@ -48,7 +53,7 @@ export function Header({ onTabChange, activeTab }: HeaderProps) {
           >
             <MessageCircle className="h-5 w-5 text-slate-700 dark:text-slate-200" />
             <span className="hidden text-sm font-medium text-slate-700 dark:text-slate-200 sm:inline">
-              Поддержка
+              {t("header.support")}
             </span>
           </a>
 
@@ -60,7 +65,7 @@ export function Header({ onTabChange, activeTab }: HeaderProps) {
           >
             <Github className="h-5 w-5 text-slate-700 dark:text-slate-200" />
             <span className="hidden text-sm font-medium text-slate-700 dark:text-slate-200 sm:inline">
-              Star on GitHub
+              {t("header.starOnGithub")}
             </span>
           </a>
         </div>

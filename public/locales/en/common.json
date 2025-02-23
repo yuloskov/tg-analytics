@@ -1,0 +1,29 @@
+{
+  "header": {
+    "title": "Telegram Chat Analytics",
+    "description": "Detailed analytics of messages and user activity from your chat history",
+    "newReport": "New Report",
+    "example": "Example",
+    "howToDownload": "How to Download",
+    "support": "Support",
+    "report": "Report"
+  },
+  "starOnGithub": "Star on GitHub",
+  "upload": {
+    "title": "Upload your chat",
+    "description": "Upload your Telegram chat export file to generate analytics",
+    "button": "Upload file",
+    "howTo": "How to export chat?"
+  },
+  "report": {
+    "loading": "Loading...",
+    "noData": "No data available",
+    "uploadNew": "Upload new chat",
+    "year": "Year",
+    "allTime": "All time"
+  },
+  "language": {
+    "en": "English",
+    "ru": "Russian"
+  }
+} 

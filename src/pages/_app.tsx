@@ -1,5 +1,6 @@
 import { GeistSans } from "geist/font/sans";
 import { type AppType } from "next/app";
+import { appWithTranslation } from "next-i18next";
 
 import "~/styles/globals.css";
 
@@ -11,4 +12,4 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   );
 };
 
-export default MyApp;
+export default appWithTranslation(MyApp);

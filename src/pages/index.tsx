@@ -19,6 +19,8 @@ import {
 import { useUserColors } from "~/store/userColors";
 import { exampleData } from "~/utils/exampleData";
 import { PrivacyNotice } from "~/components/Report/Blocks/PrivacyNotice";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { type GetStaticProps } from "next";
 
 export default function Home() {
   const router = useRouter();
@@ -119,7 +121,7 @@ export default function Home() {
         />
       )}
 
-      {activeTab === "how-to" && <HowToTab />}
+      {activeTab === "howTo" && <HowToTab />}
 
       {activeTab === "upload" && (
         <div className="mb-8">
@@ -154,3 +156,11 @@ export default function Home() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+};
