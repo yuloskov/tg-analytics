@@ -11,6 +11,7 @@ import { VoiceMessages } from "./Blocks/VoiceMessages";
 import { VideoMessages } from "./Blocks/VideoMessages";
 import { WordCloudChart } from "./Blocks/WordCloud";
 import { ForwardedMessages } from "./Blocks/ForwardedMessages";
+import { TotalMessages } from "./Blocks/TotalMessages";
 import Masonry from "react-masonry-css";
 import { PrivacyNotice } from "./Blocks/PrivacyNotice"
 import { Loader } from "../ui/Loader"
@@ -92,6 +93,9 @@ export function Report({
             </div>
             <div className="masonry-grid-item">
               <FirstMessages {...processedData.firstMessages} />
+            </div>
+            <div className="masonry-grid-item">
+              <TotalMessages {...processedData.messages} />
             </div>
             <div className="masonry-grid-item">
               <PopularReactions {...processedData.reactions} />
