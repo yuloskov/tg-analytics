@@ -3,62 +3,62 @@ export const exampleData = {
     messages: {
       monthlyData: [
         {
-          month: "Январь",
+          month: "months.january",
           MJ: 167,
           "Человек Паук": 117,
         },
         {
-          month: "Февраль",
+          month: "months.february",
           MJ: 116,
           "Человек Паук": 126,
         },
         {
-          month: "Март",
+          month: "months.march",
           MJ: 94,
           "Человек Паук": 63,
         },
         {
-          month: "Апрель",
+          month: "months.april",
           MJ: 84,
           "Человек Паук": 85,
         },
         {
-          month: "Май",
+          month: "months.may",
           MJ: 315,
           "Человек Паук": 252,
         },
         {
-          month: "Июнь",
+          month: "months.june",
           MJ: 88,
           "Человек Паук": 101,
         },
         {
-          month: "Июль",
+          month: "months.july",
           MJ: 961,
           "Человек Паук": 760,
         },
         {
-          month: "Август",
+          month: "months.august",
           MJ: 133,
           "Человек Паук": 93,
         },
         {
-          month: "Сентябрь",
+          month: "months.september",
           MJ: 74,
           "Человек Паук": 71,
         },
         {
-          month: "Октябрь",
+          month: "months.october",
           MJ: 401,
           "Человек Паук": 210,
         },
         {
-          month: "Ноябрь",
+          month: "months.november",
           MJ: 708,
           "Человек Паук": 676,
         },
         {
-          month: "Декабрь",
+          month: "months.december",
           MJ: 455,
           "Человек Паук": 426,
         },
@@ -225,62 +225,62 @@ export const exampleData = {
     firstMessages: {
       monthlyInitiations: [
         {
-          month: "Январь",
+          month: "months.january",
           MJ: 16,
           "Человек Паук": 7,
         },
         {
-          month: "Февраль",
+          month: "months.february",
           MJ: 9,
           "Человек Паук": 13,
         },
         {
-          month: "Март",
+          month: "months.march",
           MJ: 8,
           "Человек Паук": 12,
         },
         {
-          month: "Апрель",
+          month: "months.april",
           MJ: 11,
           "Человек Паук": 17,
         },
         {
-          month: "Май",
+          month: "months.may",
           MJ: 10,
           "Человек Паук": 9,
         },
         {
-          month: "Июнь",
+          month: "months.june",
           MJ: 9,
           "Человек Паук": 14,
         },
         {
-          month: "Июль",
+          month: "months.july",
           MJ: 9,
           "Человек Паук": 6,
         },
         {
-          month: "Август",
+          month: "months.august",
           MJ: 12,
           "Человек Паук": 10,
         },
         {
-          month: "Сентябрь",
+          month: "months.september",
           MJ: 10,
           "Человек Паук": 11,
         },
         {
-          month: "Октябрь",
+          month: "months.october",
           MJ: 14,
           "Человек Паук": 14,
         },
         {
-          month: "Ноябрь",
+          month: "months.november",
           MJ: 11,
           "Человек Паук": 11,
         },
         {
-          month: "Декабрь",
+          month: "months.december",
           MJ: 10,
           "Человек Паук": 12,
         },
@@ -861,62 +861,62 @@ export const exampleData = {
     messages: {
       monthlyData: [
         {
-          month: "Январь",
+          month: "months.january",
           MJ: 681,
           "Человек Паук": 487,
         },
         {
-          month: "Февраль",
+          month: "months.february",
           MJ: 363,
           "Человек Паук": 295,
         },
         {
-          month: "Март",
+          month: "months.march",
           MJ: 134,
           "Человек Паук": 151,
         },
         {
-          month: "Апрель",
+          month: "months.april",
           MJ: 134,
           "Человек Паук": 149,
         },
         {
-          month: "Май",
+          month: "months.may",
           MJ: 234,
           "Человек Паук": 192,
         },
         {
-          month: "Июнь",
+          month: "months.june",
           MJ: 168,
           "Человек Паук": 132,
         },
         {
-          month: "Июль",
+          month: "months.july",
           MJ: 235,
           "Человек Паук": 204,
         },
         {
-          month: "Август",
+          month: "months.august",
           MJ: 539,
           "Человек Паук": 447,
         },
         {
-          month: "Сентябрь",
+          month: "months.september",
           MJ: 422,
           "Человек Паук": 373,
         },
         {
-          month: "Октябрь",
+          month: "months.october",
           MJ: 285,
           "Человек Паук": 261,
         },
         {
-          month: "Ноябрь",
+          month: "months.november",
           MJ: 444,
           "Человек Паук": 416,
         },
         {
-          month: "Декабрь",
+          month: "months.december",
           MJ: 226,
           "Человек Паук": 220,
         },
@@ -1083,62 +1083,62 @@ export const exampleData = {
     firstMessages: {
       monthlyInitiations: [
         {
-          month: "Январь",
+          month: "months.january",
           MJ: 13,
           "Человек Паук": 7,
         },
         {
-          month: "Февраль",
+          month: "months.february",
           MJ: 9,
           "Человек Паук": 8,
         },
         {
-          month: "Март",
+          month: "months.march",
           MJ: 7,
           "Человек Паук": 11,
         },
         {
-          month: "Апрель",
+          month: "months.april",
           MJ: 12,
           "Человек Паук": 12,
         },
         {
-          month: "Май",
+          month: "months.may",
           MJ: 12,
           "Человек Паук": 6,
         },
         {
-          month: "Июнь",
+          month: "months.june",
           MJ: 12,
           "Человек Паук": 11,
         },
         {
-          month: "Июль",
+          month: "months.july",
           MJ: 7,
           "Человек Паук": 15,
         },
         {
-          month: "Август",
+          month: "months.august",
           MJ: 10,
           "Человек Паук": 5,
         },
         {
-          month: "Сентябрь",
+          month: "months.september",
           MJ: 14,
           "Человек Паук": 9,
         },
         {
-          month: "Октябрь",
+          month: "months.october",
           MJ: 14,
           "Человек Паук": 12,
         },
         {
-          month: "Ноябрь",
+          month: "months.november",
           MJ: 15,
           "Человек Паук": 10,
         },
         {
-          month: "Декабрь",
+          month: "months.december",
           MJ: 9,
           "Человек Паук": 13,
         },
@@ -1719,62 +1719,62 @@ export const exampleData = {
     messages: {
       monthlyData: [
         {
-          month: "Январь",
+          month: "months.january",
           MJ: 247,
           "Человек Паук": 216,
         },
         {
-          month: "Февраль",
+          month: "months.february",
           MJ: 710,
           "Человек Паук": 682,
         },
         {
-          month: "Март",
+          month: "months.march",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Апрель",
+          month: "months.april",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Май",
+          month: "months.may",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Июнь",
+          month: "months.june",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Июль",
+          month: "months.july",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Август",
+          month: "months.august",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Сентябрь",
+          month: "months.september",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Октябрь",
+          month: "months.october",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Ноябрь",
+          month: "months.november",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Декабрь",
+          month: "months.december",
           MJ: 0,
           "Человек Паук": 0,
         },
@@ -1941,62 +1941,62 @@ export const exampleData = {
     firstMessages: {
       monthlyInitiations: [
         {
-          month: "Январь",
+          month: "months.january",
           MJ: 16,
           "Человек Паук": 7,
         },
         {
-          month: "Февраль",
+          month: "months.february",
           MJ: 7,
           "Человек Паук": 5,
         },
         {
-          month: "Март",
+          month: "months.march",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Апрель",
+          month: "months.april",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Май",
+          month: "months.may",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Июнь",
+          month: "months.june",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Июль",
+          month: "months.july",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Август",
+          month: "months.august",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Сентябрь",
+          month: "months.september",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Октябрь",
+          month: "months.october",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Ноябрь",
+          month: "months.november",
           MJ: 0,
           "Человек Паук": 0,
         },
         {
-          month: "Декабрь",
+          month: "months.december",
           MJ: 0,
           "Человек Паук": 0,
         },
@@ -2556,62 +2556,62 @@ export const exampleData = {
     messages: {
       monthlyData: [
         {
-          month: "Январь",
+          month: "months.january",
           MJ: 2221,
           "Человек Паук": 2251,
         },
         {
-          month: "Февраль",
+          month: "months.february",
           MJ: 1505,
           "Человек Паук": 1480,
         },
         {
-          month: "Март",
+          month: "months.march",
           MJ: 1899,
           "Человек Паук": 2468,
         },
         {
-          month: "Апрель",
+          month: "months.april",
           MJ: 554,
           "Человек Паук": 866,
         },
         {
-          month: "Май",
+          month: "months.may",
           MJ: 1303,
           "Человек Паук": 1302,
         },
         {
-          month: "Июнь",
+          month: "months.june",
           MJ: 1859,
           "Человек Паук": 2169,
         },
         {
-          month: "Июль",
+          month: "months.july",
           MJ: 3231,
           "Человек Паук": 3885,
         },
         {
-          month: "Август",
+          month: "months.august",
           MJ: 1126,
           "Человек Паук": 1337,
         },
         {
-          month: "Сентябрь",
+          month: "months.september",
           MJ: 1098,
           "Человек Паук": 1225,
         },
         {
-          month: "Октябрь",
+          month: "months.october",
           MJ: 1245,
           "Человек Паук": 1181,
         },
         {
-          month: "Ноябрь",
+          month: "months.november",
           MJ: 1882,
           "Человек Паук": 1970,
         },
         {
-          month: "Декабрь",
+          month: "months.december",
           MJ: 1270,
           "Человек Паук": 1710,
         },
@@ -2778,62 +2778,62 @@ export const exampleData = {
     firstMessages: {
       monthlyInitiations: [
         {
-          month: "Январь",
+          month: "months.january",
           MJ: 64,
           "Человек Паук": 36,
         },
         {
-          month: "Февраль",
+          month: "months.february",
           MJ: 54,
           "Человек Паук": 52,
         },
         {
-          month: "Март",
+          month: "months.march",
           MJ: 44,
           "Человек Паук": 47,
         },
         {
-          month: "Апрель",
+          month: "months.april",
           MJ: 49,
           "Человек Паук": 51,
         },
         {
-          month: "Май",
+          month: "months.may",
           MJ: 53,
           "Человек Паук": 41,
         },
         {
-          month: "Июнь",
+          month: "months.june",
           MJ: 44,
           "Человек Паук": 46,
         },
         {
-          month: "Июль",
+          month: "months.july",
           MJ: 30,
           "Человек Паук": 38,
         },
         {
-          month: "Август",
+          month: "months.august",
           MJ: 56,
           "Человек Паук": 31,
         },
         {
-          month: "Сентябрь",
+          month: "months.september",
           MJ: 46,
           "Человек Паук": 55,
         },
         {
-          month: "Октябрь",
+          month: "months.october",
           MJ: 59,
           "Человек Паук": 51,
         },
         {
-          month: "Ноябрь",
+          month: "months.november",
           MJ: 63,
           "Человек Паук": 52,
         },
         {
-          month: "Декабрь",
+          month: "months.december",
           MJ: 53,
           "Человек Паук": 56,
         },
