@@ -2,8 +2,22 @@ import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="ru">
       <Head>
+        <title>Telegram Chat Analyzer - Подробная аналитика сообщений</title>
+        <meta name="description" content="Подробная аналитика сообщений и активности пользователей в Telegram чатах" />
+        <meta name="keywords" content="Telegram, аналитика, статистика, чаты, анализ сообщений, визуализация данных, активность пользователей" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Telegram Chat Analyzer - Подробная аналитика сообщений" />
+        <meta property="og:description" content="Подробная аналитика сообщений и активности пользователей в Telegram чатах" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Telegram Chat Analyzer - Подробная аналитика сообщений" />
+        <meta name="twitter:description" content="Подробная аналитика сообщений и активности пользователей в Telegram чатах" />
+        
         <link
           rel="apple-touch-icon"
           sizes="180x180"

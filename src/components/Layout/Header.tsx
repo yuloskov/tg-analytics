@@ -29,11 +29,11 @@ export function Header({ onTabChange, activeTab }: HeaderProps) {
         <div>
           <Link href="/" className="block">
             <h1 className="bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-4xl font-bold text-transparent">
-              TG Chat Analyzer
+              Telegram Chat Analyzer
             </h1>
             <div className="mt-2 inline-block">
               <span className="text-sm text-slate-700 dark:text-slate-200">
-                Анализируйте свои чаты в Telegram
+                Подробная аналитика сообщений и активности пользователей
               </span>
             </div>
           </Link>
