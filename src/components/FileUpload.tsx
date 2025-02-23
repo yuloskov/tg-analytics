@@ -26,7 +26,7 @@ export function FileUpload({ onChatDataLoad, onHowToClick }: FileUploadProps) {
         onChatDataLoad(data)
       })
       .catch(() => {
-        setError('Error reading file. Please make sure it\'s a valid Telegram chat export JSON file.')
+        setError('Ошибка при чтении файла. Пожалуйста, убедитесь, что это действительно файл экспорта чата Telegram.')
       })
   }, [onChatDataLoad])
 
