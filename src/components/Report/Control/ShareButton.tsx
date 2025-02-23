@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { type ProcessedDataByYear } from "~/utils/dataProcessing";
-import { generateShareableUrl } from "~/utils/sharing";
+import { encodeDataForSharing, generateShareableUrl } from "~/utils/sharing";
 import { useUserColors } from "~/store/userColors";
 import { supabase } from "~/lib/supabase";
 
 interface ShareButtonProps {
   data: ProcessedDataByYear;
+}
+
+interface SharedReportRecord {
+  id: string;
+  encrypted_data: string;
+  created_at: string;
 }
 
 export function ShareButton({ data }: ShareButtonProps) {
@@ -21,21 +27,33 @@ export function ShareButton({ data }: ShareButtonProps) {
   const handleConfirm = async () => {
     try {
       setIsLoading(true);
-      const shareableUrl = generateShareableUrl(data, userColors);
 
-      // Store the share data in Supabase
-      const { error } = await supabase.from("shared_reports").insert([
-        {
-          data: data,
-          user_colors: userColors,
-          created_at: new Date().toISOString(),
-        },
-      ]);
+      // Encrypt the data and get both the encrypted data and key
+      const { data: encryptedData, key } = await encodeDataForSharing(data, userColors);
+
+      // Store the encrypted data in Supabase and get the record ID
+      const { data: record, error } = await supabase
+        .from("shared_reports")
+        .insert([
+          {
+            encrypted_data: encryptedData,
+            created_at: new Date().toISOString(),
+          },
+        ])
+        .select('id')
+        .single() as { data: SharedReportRecord | null; error: Error | null };
 
       if (error) {
         console.error("Error storing share data:", error);
         throw error;
       }
+
+      if (!record) {
+        throw new Error("Failed to create shared report record");
+      }
+
+      // Generate the shareable URL with record ID and key
+      const shareableUrl = await generateShareableUrl(record.id, key);
 
       await navigator.clipboard.writeText(shareableUrl);
       setIsCopied(true);

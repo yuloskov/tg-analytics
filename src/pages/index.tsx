@@ -33,20 +33,38 @@ export default function Home() {
 
   // Check for shared data in URL on mount
   useEffect(() => {
-    const encodedData = getSharedDataFromUrl();
-    if (encodedData) {
-      const decodedData = decodeSharedData(encodedData);
-      if (decodedData) {
-        setProcessedDataByYear(decodedData.processedData);
-        setIsSharedData(true);
-        // Clear existing colors and set the shared colors
-        clearUserColors();
-        Object.entries(decodedData.userColors).forEach(([userId, color]) => {
-          setUserColor(userId, color);
-        });
+    async function loadSharedData() {
+      const sharedData = getSharedDataFromUrl();
+      if (!sharedData) return;
+
+      setIsLoading(true);
+
+      try {
+        const { recordId, key } = sharedData;
+        const decodedData = await decodeSharedData(recordId, key);
+
+        if (decodedData) {
+          setProcessedDataByYear(decodedData.processedData);
+          setIsSharedData(true);
+          // Clear existing colors and set the shared colors
+          clearUserColors();
+          Object.entries(decodedData.userColors).forEach(([userId, color]) => {
+            setUserColor(userId, color);
+          });
+        } else {
+          console.error(
+            "Failed to decode shared data: Data not found or invalid",
+          );
+        }
+      } catch (error) {
+        console.error("Failed to decode shared data:", error);
       }
+
+      setIsLoading(false);
     }
-  }, []);
+
+    void loadSharedData();
+  }, [clearUserColors, setUserColor]);
 
   useEffect(() => {
     if (!chatData) return;
@@ -70,17 +88,18 @@ export default function Home() {
     if (tab === "upload") {
       clearSharedDataFromUrl();
     }
-    void router.push({
-      pathname: router.pathname,
-      query: { ...router.query, tab },
-    }, undefined, { shallow: true });
+    void router.push(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, tab },
+      },
+      undefined,
+      { shallow: true },
+    );
   };
 
   return (
-    <Layout
-      activeTab={activeTab}
-      onTabChange={handleTabChange}
-    >
+    <Layout activeTab={activeTab} onTabChange={handleTabChange}>
       {activeTab === "example" && (
         <Report
           processedDataByYear={exampleData as ProcessedDataByYear}
