@@ -66,9 +66,15 @@ yarn dev
    - Customize user colors
    - Share insights with others
 
-## Privacy
+## Privacy & Security
 
-This application processes all data locally in your browser. No chat data is ever sent to any server or stored anywhere outside your device.
+This application prioritizes your data privacy and security:
+
+- 🔒 All data processing happens locally in your browser
+- 🔐 When sharing reports, data is protected with end-to-end encryption
+- 📱 Only aggregated statistics are stored (never original messages)
+- 🔑 Only people with the share link can access the encrypted data
+- 💾 No chat data is ever stored unencrypted on any servers
 
 ## Technologies Used
 
