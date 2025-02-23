@@ -3,7 +3,7 @@ import { type ChatData } from "~/types/chat";
 import { FileUpload } from "~/components/FileUpload";
 import { HowToTab } from "~/components/HowToTab";
 import { Report } from "~/components/Report";
-import { Header } from "~/components/Header";
+import { Layout } from "~/components/Layout";
 import {
   getSharedDataFromUrl,
   decodeSharedData,
@@ -62,17 +62,15 @@ export default function Home() {
   const processedData = processedDataByYear?.[selectedYear] ?? defaultData;
 
   return (
-    <div className="container mx-auto p-4">
-      <Header
-        activeTab={activeTab}
-        onTabChange={(tab) => {
-          if (tab === "upload") {
-            clearSharedDataFromUrl();
-          }
-          setActiveTab(tab);
-        }}
-      />
-
+    <Layout
+      activeTab={activeTab}
+      onTabChange={(tab) => {
+        if (tab === "upload") {
+          clearSharedDataFromUrl();
+        }
+        setActiveTab(tab);
+      }}
+    >
       {activeTab === "example" && (
         <Report
           processedDataByYear={exampleData as ProcessedDataByYear}
@@ -124,6 +122,6 @@ export default function Home() {
           onYearChange={setSelectedYear}
         />
       )}
-    </div>
+    </Layout>
   );
 }
