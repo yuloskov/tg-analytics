@@ -33,7 +33,7 @@ export function Header({ onTabChange, activeTab }: HeaderProps) {
             </h1>
             <div className="mt-2 inline-block">
               <span className="text-sm text-slate-700 dark:text-slate-200">
-                Подробная аналитика сообщений и активности пользователей
+                Подробная аналитика сообщений и активности пользователей по вашей переписке
               </span>
             </div>
           </Link>

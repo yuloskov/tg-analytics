@@ -5,18 +5,18 @@ export default function Document() {
     <Html lang="ru">
       <Head>
         <title>Telegram Chat Analyzer - Подробная аналитика сообщений</title>
-        <meta name="description" content="Подробная аналитика сообщений и активности пользователей в Telegram чатах" />
+        <meta name="description" content="Подробная аналитика сообщений и активности пользователей по вашей переписке" />
         <meta name="keywords" content="Telegram, аналитика, статистика, чаты, анализ сообщений, визуализация данных, активность пользователей" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Telegram Chat Analyzer - Подробная аналитика сообщений" />
-        <meta property="og:description" content="Подробная аналитика сообщений и активности пользователей в Telegram чатах" />
+        <meta property="og:description" content="Подробная аналитика сообщений и активности пользователей по вашей переписке" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Telegram Chat Analyzer - Подробная аналитика сообщений" />
-        <meta name="twitter:description" content="Подробная аналитика сообщений и активности пользователей в Telegram чатах" />
+        <meta name="twitter:description" content="Подробная аналитика сообщений и активности пользователей по вашей переписке" />
         
         <link
           rel="apple-touch-icon"
