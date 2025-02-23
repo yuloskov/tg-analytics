@@ -104,10 +104,6 @@
     "description": "Detailed analytics of messages and user activity from your chat history",
     "keywords": "Telegram, analytics, statistics, chats, message analysis, data visualization, user activity"
   },
-  "language": {
-    "en": "English",
-    "ru": "Russian"
-  },
   "months": {
     "january": "January",
     "february": "February",
