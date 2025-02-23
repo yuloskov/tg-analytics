@@ -6,9 +6,9 @@
     "example": "Example",
     "howToDownload": "How to Download",
     "support": "Support",
+    "starOnGithub": "Star on GitHub",
     "report": "Report"
   },
-  "starOnGithub": "Star on GitHub",
   "upload": {
     "title": "Upload your chat",
     "description": "Upload your Telegram chat export file to generate analytics",
@@ -26,4 +26,4 @@
     "en": "English",
     "ru": "Russian"
   }
-} 
+}

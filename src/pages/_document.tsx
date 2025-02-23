@@ -4,7 +4,6 @@ export default function Document() {
   return (
     <Html lang="ru">
       <Head>
-        <title>Telegram Chat Analyzer - Подробная аналитика сообщений</title>
         <meta name="description" content="Подробная аналитика сообщений и активности пользователей по вашей переписке" />
         <meta name="keywords" content="Telegram, аналитика, статистика, чаты, анализ сообщений, визуализация данных, активность пользователей" />
         
